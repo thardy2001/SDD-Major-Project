@@ -1,4 +1,9 @@
-import moveRules
+from moveRules import checkMovePawn
+from moveRules import checkMoveRook
+from moveRules import checkMoveQueen
+from moveRules import checkMoveBishop
+from moveRules import checkMoveKnight
+from moveRules import checkMoveKing
 
 
 
@@ -12,43 +17,6 @@ board = [['','','','','','','',''], ['','','','','','','',''], ['','','','','','
 RANK = {"A":board[7], "B":board[6], "C":board[5], "D":board[4], "E":board[3], "F":board[2], "G":board[1], "H":board[0]}
 
 
-def changeRankToDigit(rank):
-    """
-    Changes a specific rank into a digit, beginning at 0
-    e.g.
-    A => 0,
-    B => 1,
-    """
-    conversion = {
-    'A': 0,
-    'B': 1,
-    'C': 2,
-    'D': 3,
-    'E': 4,
-    'F': 5,
-    'G': 6,
-    'H': 7,
-    'I': 8,
-    'J': 9,
-    'K': 10,
-    'L': 11,
-    'M': 12,
-    'N': 13,
-    'O': 14,
-    'P': 15,
-    'Q':16,
-    'R':17,
-    'S':18,
-    'T':19,
-    'U':20,
-    'V':21,
-    'W':22,
-    'X':23,
-    'Y':24,
-    'Z':25
-    }
-    digit = conversion[rank.upper()]
-    return digit
 
 
 def reset_board():
@@ -118,17 +86,17 @@ def checkMove(move):
     else:
         team = "B"
     if "P" in piece:
-        move_legal = moveRules.checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
+        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "R" in piece:
-        move_legal =  moveRules.checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
+        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif piece == "WB" or piece == "BB":
-        move_legal =  moveRules.checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
+        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "Q" in piece:
-        move_legal =  moveRules.checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
+        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "K" in piece:
-        move_legal =  moveRules.checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
+        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "N" in piece:
-        move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
+        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
 
 
 
