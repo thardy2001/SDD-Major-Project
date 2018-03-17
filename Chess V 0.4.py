@@ -85,10 +85,10 @@ def reset_board():
 
 
 
-def checkMovePawn(start_pos,end_pos):
+def checkMovePawn(start_rank, start_column, end_rank, end_column):
     return True
 
-def checkMoveRook(start_pos,end_pos):
+def checkMoveRook(start_rank, start_column, end_rank, end_column):
     """BEGIN checkmoveRook[startpos, endpos]
     	SET legalmove to FALSE
     	IF startpos NOT EQUAL TO endpos THEN
@@ -113,16 +113,16 @@ def checkMoveRook(start_pos,end_pos):
         return False
     return True
 
-def checkMoveKnight(start_pos,end_pos):
+def checkMoveKnight(start_rank, start_column, end_rank, end_column):
     return True
 
-def checkMoveBishop(start_pos,end_pos):
+def checkMoveBishop(start_rank, start_column, end_rank, end_column):
     return True
 
-def checkMoveKing(start_pos,end_pos):
+def checkMoveKing(start_rank, start_column, end_rank, end_column):
     return True
 
-def checkMoveQueen(start_pos,end_pos):
+def checkMoveQueen(start_rank, start_column, end_rank, end_column):
     return True
 
 def displayBoard():
