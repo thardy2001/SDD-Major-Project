@@ -5,10 +5,10 @@ def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_po
 def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_pos, end_pos):
 
     if start_pos != end_pos:
-        if rank_to_digit[start_rank] != rank_to_digit[end_rank] and start_column == end_column:
+        if changeRankToDigit(start_rank) != changeRankToDigit(end_rank) and start_column == end_column:
             if checkSquareContent(end_pos) != team:
                 return True
-        elif rank_to_digit[start_rank] == rank_to_digit[end_rank] and start_column != end_column:
+        elif changeRankToDigit(start_rank) == changeRankToDigit(end_rank) and start_column != end_column:
             if checkSquareContent(end_pos) != team:
                 return True
 
@@ -26,4 +26,8 @@ def checkMoveKing(start_rank, start_column, end_rank, end_column, team,start_pos
     return True
 
 def checkMoveQueen(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
-    return True
+    if checkMoveRook(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+        return True
+    elif checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+        return True
+    return False
