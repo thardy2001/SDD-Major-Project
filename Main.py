@@ -58,7 +58,7 @@ def performMove(start_rank,start_column, end_pos):
     end_column = end_pos[1:]
 
     #Make Move
-    RANK[end_rank][int(end_column)-1] = RANK[start_rank][start_column]
+    RANK[end_rank][int(end_column)-1] = RANK[start_rank][int(start_column)-1]
     RANK[start_rank][start_column] = '  '
 
 
