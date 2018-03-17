@@ -59,22 +59,20 @@ def checkMove(move, RANK, turn, board):
 
     start_pos_column = int(start_pos[1:]) - 1
     piece = RANK[start_pos_rank][start_pos_column]
-    if "W" in piece:
-        team = "W"
-    else:
-        team = "B"
+    piece_team = checkTeam(start_pos,board)
 
 
 
-
-    if "W" in piece and turn == "B":
-        print("It is Blacks Turn")
+    if piece_team == 'W' and turn == "B":
+        print("It is Black's Turn")
         move_legal = False
         makeMove(RANK, turn, board)
-    elif "W" not in piece and turn == 'B':
-        print("It is Whites Turn")
+    elif piece_team == 'B' and turn == 'W':
+        print("It is White's Turn")
         move_legal = False
         makeMove(RANK, turn, board)
+    elif piece_team == 'E':
+        print('No piece in',start_pos)
     if move_legal == True:
         performMove(start_pos_rank, start_pos_column, end_pos, RANK)
         print(start_pos, piece, "moves to", end_pos)
@@ -110,7 +108,7 @@ def makeMove(RANK, turn, board):
         displayBoard(board)
         turn = 'B'
 
-def checkSquareContent (coordinate, board):
+def checkTeam (coordinate, board):
     #E- Empty
     #B - Black
     #W - White
@@ -173,10 +171,10 @@ def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_po
 
     if start_pos != end_pos:
         if changeRankToDigit(start_rank) != changeRankToDigit(end_rank) and start_column == end_column:
-            if checkSquareContent(end_pos, board) != team:
+            if checkTeam(end_pos, board) != team:
                 return True
         elif changeRankToDigit(start_rank) == changeRankToDigit(end_rank) and start_column != end_column:
-            if checkSquareContent(end_pos, board) != team:
+            if checkTeam(end_pos, board) != team:
                 return True
 
 
