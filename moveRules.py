@@ -1,4 +1,6 @@
 from  Main import checkSquareContent
+
+
 def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_pos, end_pos):
     return True
 
