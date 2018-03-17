@@ -1,10 +1,10 @@
 
-from  moveRules.py import checkMovePawn
-from  moveRules.py import checkMoveKnight
-from  moveRules.py import checkMoveRook
-from  moveRules.py import checkMoveKing
-from  moveRules.py import checkMoveQueen
-from  moveRules.py import checkMoveBishop
+from  moveRules import checkMovePawn
+from  moveRules import checkMoveKnight
+from  moveRules import checkMoveRook
+from  moveRules import checkMoveKing
+from  moveRules import checkMoveQueen
+from  moveRules import checkMoveBishop
 
 
 
@@ -121,7 +121,7 @@ def checkMove(move):
 
     end_pos_rank = end_pos[:1]
     end_pos_rank = end_pos_rank.upper()
-    end_pos_column = int(end_pos[1:] -1)
+    end_pos_column = int(end_pos[1:]) -1
 
     start_pos_column = int(start_pos[1:]) - 1
     piece = RANK[start_pos_rank][start_pos_column]
@@ -130,17 +130,17 @@ def checkMove(move):
     else:
         team = "B"
     if "P" in piece:
-        move_legal = moveRules.checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
+        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "R" in piece:
-        move_legal =  moveRules.checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
+        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif piece == "WB" or piece == "BB":
-        move_legal =  moveRules.checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
+        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "Q" in piece:
-        move_legal =  moveRules.checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
+        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "K" in piece:
-        move_legal =  moveRules.checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
+        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
     elif "N" in piece:
-        move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
+        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
 
 
 
