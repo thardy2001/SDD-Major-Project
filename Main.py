@@ -3,7 +3,7 @@ from gameFunctions import *
 
 
 gameRunning = True
-turn = True
+turn = 'W'
 #Create Board Positions
 #         H                          G                          F                          E                          D
 board = [['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''],
