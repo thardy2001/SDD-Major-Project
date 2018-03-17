@@ -1,4 +1,4 @@
-
+from gameFunctions import *
 
 
 def changeRankToDigit(rank):
