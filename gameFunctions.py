@@ -71,7 +71,7 @@ def checkMove(move, RANK, turn, board):
         print("It is Blacks Turn")
         move_legal = False
         makeMove(RANK, turn, board)
-    elif "W" not in piece and turn == True:
+    elif "W" not in piece and turn == 'B':
         print("It is Whites Turn")
         move_legal = False
         makeMove(RANK, turn, board)
@@ -108,7 +108,7 @@ def makeMove(RANK, turn, board):
     else:
         print("Move complete!")
         displayBoard(board)
-        turn = False
+        turn = 'B'
 
 def checkSquareContent (coordinate, board):
     #E- Empty
