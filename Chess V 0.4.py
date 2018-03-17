@@ -1,5 +1,12 @@
 
-import moveRules.py
+from  moveRules.py import checkMovePawn
+from  moveRules.py import checkMoveKnight
+from  moveRules.py import checkMoveRook
+from  moveRules.py import checkMoveKing
+from  moveRules.py import checkMoveQueen
+from  moveRules.py import checkMoveBishop
+
+
 
 gameRunning = True
 turn = True
