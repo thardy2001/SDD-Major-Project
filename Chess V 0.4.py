@@ -1,7 +1,7 @@
 gameRunning = True
 turn = True
 #Create Board Positions
-#         H                          G                          F                          E                          D             
+#         H                          G                          F                          E                          D
 board = [['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''],
       #   C                          B                          A
          ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','','']]
@@ -29,11 +29,11 @@ BEGIN checkmovePawn[startpos, endpos]
 		ENDIF
                 IF endpos(x) EQUALS startpos(x) + 1 AND endpos(y) EQUALS startpos(y) +1 OR endpos(x) EQUALS startpos(x) – 1 AND endpos(y) EQUALS startpos(y) + 1 THEN
                     IF checksquarecontent(endpos(x, y)) EQUALS “enemy” THEN
-                        SET Legalmove to TRUE 
+                        SET Legalmove to TRUE
                     ENDIF
-                
+
 		ENDIF
-	
+
 	ENDIF
 RETURN legalmove
 
@@ -46,12 +46,12 @@ def checkMovePawn(start_pos, end_pos):
     move_legal = False
     if start_pos[0] != end_pos[0]:
         if start_pos[1] != end_pos[1]:
-            if start_pos[1] == 
+            if start_pos[1] ==
         else:
             return False
     else:
         return False
-        
+
 '''
 def reset_board():
     #For every "Cell" on the board
@@ -83,8 +83,8 @@ def reset_board():
     RANK["H"][6] = "BN"
     RANK["H"][7] = "BR"
 
- 
-    
+
+
 def checkMovePawn(start_pos,end_pos):
     return True
 
@@ -102,7 +102,7 @@ def checkMoveKing(start_pos,end_pos):
 
 def checkMoveQueen(start_pos,end_pos):
     return True
-    
+
 def displayBoard():
     for i in range(len(board)):
         print(board[i])
@@ -110,12 +110,12 @@ def displayBoard():
 def performMove(start_rank,start_column, end_pos):
     #Get End Position Details
     end_rank = end_pos[:1]
-    end_column = end_pos[1:] 
-    
+    end_column = end_pos[1:]
+
     #Make Move
     RANK[end_rank][int(end_column)-1] = RANK[start_rank][start_column]
     RANK[start_rank][start_column] = '  '
-    
+
 
 def checkMove(move):
     move_legal = False
@@ -123,10 +123,10 @@ def checkMove(move):
     moves = move.split("x")
     start_pos = moves[0]
     end_pos = moves[1]
-    
+
     start_pos_rank = start_pos[:1]
     start_pos_rank = start_pos_rank.upper()
-    
+
     start_pos_column = int(start_pos[1:]) - 1
     piece = RANK[start_pos_rank][start_pos_column]
     if "P" in piece:
@@ -145,7 +145,7 @@ def checkMove(move):
 
 
 
-    
+
     if "W" in piece and turn == False:
         print("It is Blacks Turn")
         move_legal = False
@@ -161,8 +161,8 @@ def checkMove(move):
     else:
         return False
 
-    
-    
+
+
 reset_board()
 displayBoard()
 
@@ -175,6 +175,6 @@ def makeMove():
         print("Move complete!")
         displayBoard()
         turn = False
- 
+
 while gameRunning == True:
     makeMove()
