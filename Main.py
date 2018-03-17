@@ -19,4 +19,4 @@ displayBoard(board)
 
 
 while gameRunning == True:
-    makeMove(RANK, turn)
+    makeMove(RANK, turn, board)

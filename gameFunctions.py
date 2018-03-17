@@ -43,7 +43,7 @@ def performMove(start_rank,start_column, end_pos, RANK):
     RANK[end_rank.upper()][int(end_column)-1] = RANK[start_rank.upper()][int(start_column)-1]
     RANK[start_rank][start_column] = '  '
 
-def checkMove(move, RANK, turn):
+def checkMove(move, RANK, turn, board):
     move_legal = False
 
     moves = move.split("x")
@@ -63,19 +63,6 @@ def checkMove(move, RANK, turn):
         team = "W"
     else:
         team = "B"
-    if "P" in piece:
-        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
-    elif "R" in piece:
-        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
-    elif piece == "WB" or piece == "BB":
-        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
-    elif "Q" in piece:
-        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
-    elif "K" in piece:
-        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
-    elif "N" in piece:
-        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos)
-
 
 
 
@@ -83,11 +70,11 @@ def checkMove(move, RANK, turn):
     if "W" in piece and turn == False:
         print("It is Blacks Turn")
         move_legal = False
-        makeMove()
+        makeMove(RANK, turn, board)
     elif "W" not in piece and turn == True:
         print("It is Whites Turn")
         move_legal = False
-        makeMove()
+        makeMove(RANK, turn, board)
     if move_legal == True:
         performMove(start_pos_rank, start_pos_column, end_pos, RANK)
         print(start_pos, piece, "moves to", end_pos)
@@ -95,14 +82,33 @@ def checkMove(move, RANK, turn):
     else:
         return False
 
-def makeMove(RANK, turn):
+        
+    if "P" in piece:
+        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
+    elif "R" in piece:
+        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
+    elif piece == "WB" or piece == "BB":
+        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
+    elif "Q" in piece:
+        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
+    elif "K" in piece:
+        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
+    elif "N" in piece:
+        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
+
+
+
+
+
+
+def makeMove(RANK, turn, board):
     move = input("Make Your Move:") # moves must be in the format B2xD2 that is, starting position x ending position
-    if checkMove(move, RANK, turn) == False:
+    if checkMove(move, RANK, turn, board) == False:
         print("Illigal Move")
-        makeMove()
+        makeMove(RANK, turn, board)
     else:
         print("Move complete!")
-        displayBoard()
+        displayBoard(board)
         turn = False
 
 def checkSquareContent (coordinate, board):
@@ -161,35 +167,35 @@ def changeRankToDigit(rank):
     digit = conversion[rank.upper()]
     return digit
 
-def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_pos, end_pos):
+def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_pos, end_pos, board):
     return True
 
-def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_pos, end_pos):
+def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_pos, end_pos, board):
 
     if start_pos != end_pos:
         if changeRankToDigit(start_rank) != changeRankToDigit(end_rank) and start_column == end_column:
-            if checkSquareContent(end_pos) != team:
+            if checkSquareContent(end_pos, board) != team:
                 return True
         elif changeRankToDigit(start_rank) == changeRankToDigit(end_rank) and start_column != end_column:
-            if checkSquareContent(end_pos) != team:
+            if checkSquareContent(end_pos, board) != team:
                 return True
 
 
     return False
 
 
-def checkMoveKnight(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+def checkMoveKnight(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
     return True
 
-def checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+def checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
     return True
 
-def checkMoveKing(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+def checkMoveKing(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
     return True
 
-def checkMoveQueen(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
-    if checkMoveRook(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+def checkMoveQueen(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
+    if checkMoveRook(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
         return True
-    elif checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos):
+    elif checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
         return True
     return False
