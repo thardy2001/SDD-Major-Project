@@ -1,9 +1,6 @@
-from moveRules import checkMovePawn
-from moveRules import checkMoveRook
-from moveRules import checkMoveQueen
-from moveRules import checkMoveBishop
-from moveRules import checkMoveKnight
-from moveRules import checkMoveKing
+from moveRules import *
+
+
 
 
 
