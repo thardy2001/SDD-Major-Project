@@ -67,7 +67,7 @@ def checkMove(move, RANK, turn, board):
 
 
 
-    if "W" in piece and turn == False:
+    if "W" in piece and turn == "B":
         print("It is Blacks Turn")
         move_legal = False
         makeMove(RANK, turn, board)
@@ -82,7 +82,6 @@ def checkMove(move, RANK, turn, board):
     else:
         return False
 
-        
     if "P" in piece:
         move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
     elif "R" in piece:
