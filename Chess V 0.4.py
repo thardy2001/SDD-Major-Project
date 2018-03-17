@@ -89,6 +89,28 @@ def checkMovePawn(start_pos,end_pos):
     return True
 
 def checkMoveRook(start_pos,end_pos):
+    """BEGIN checkmoveRook[startpos, endpos]
+    	SET legalmove to FALSE
+    	IF startpos NOT EQUAL TO endpos THEN
+    		IF startpos(x) EQUALS endpos(x) AND startpos(y) NOT EQUAL endpos(y) THEN
+    			IF checksquarecontent[endpos] THEN
+    				SET legalmove to TRUE
+    			ENDIF
+
+    		ELSEIF startpos(y) EQUALS endpos(y) AND startpos(x) NOT EQUAL endpos(x) THEN
+    			IF checksquarecontent[endpos] = ‘enemy’ OR ‘empty’ THEN
+    				SET legalmove to TRUE
+    			ENDIF
+    		ENDIF
+    ENDIF
+    RETURN legalmove
+    END checkmoveRook[startpos, endpos]
+    """
+    move_legal = True
+    if start_pos != end_pos:
+        if
+    else:
+        return False
     return True
 
 def checkMoveKnight(start_pos,end_pos):
@@ -127,20 +149,24 @@ def checkMove(move):
     start_pos_rank = start_pos[:1]
     start_pos_rank = start_pos_rank.upper()
 
+    end_pos_rank = end_pos[:1]
+    end_pos_rank = end_pos_rank.upper()
+    end_pos_column = int(end_pos[1:] -1)
+
     start_pos_column = int(start_pos[1:]) - 1
     piece = RANK[start_pos_rank][start_pos_column]
     if "P" in piece:
-        move_legal = checkMovePawn(start_pos, end_pos)
+        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
     elif "R" in piece:
-        move_legal = checkMoveRook(start_pos,end_pos)
+        move_legal = checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
     elif piece == "WB" or piece == "BB":
-        move_legal = checkMoveBishop(start_pos,end_pos)
+        move_legal = checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
     elif "Q" in piece:
-        move_legal = checkMoveQueen(start_pos,end_pos)
+        move_legal = checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
     elif "K" in piece:
-        move_legal = checkMoveKing(start_pos,end_pos)
+        move_legal = checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
     elif "N" in piece:
-        move_legal = checkMoveKnight(start_pos,end_pos)
+        move_legal = checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
 
 
 
