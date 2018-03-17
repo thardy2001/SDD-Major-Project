@@ -19,50 +19,6 @@ RANK = {"A":board[7], "B":board[6], "C":board[5], "D":board[4], "E":board[3], "F
 
 
 
-'''
-BEGIN checkmovePawn[startpos, endpos]
-	SET Legalmove to FALSE
-	IF startpos(x) NOT EQUAL TO endpos(x) THEN
-		IF startpos(y) NOT EQUAL TO endpos(y) THEN
-			IF startpos(y) is “2” THEN
-                            IF endpos(y) - startpos(y) = ‘2’ OR endpos(y) - startpos(y) = ‘1’  THEN
-					IF checksquarecontent[endpos] EQUALS “empty” THEN
-						SET legalmove to TRUE
-					ENDIF
-				ENDIF
-			ENDIF
-			IF endpos(y) – startpos(y) = ‘1’  THEN
-				IF checksquarecontent[endpos] EQUALS “empty” THEN
-					SET legalmove to TRUE
-				ENDIF
-			ENDIF
-		ENDIF
-                IF endpos(x) EQUALS startpos(x) + 1 AND endpos(y) EQUALS startpos(y) +1 OR endpos(x) EQUALS startpos(x) – 1 AND endpos(y) EQUALS startpos(y) + 1 THEN
-                    IF checksquarecontent(endpos(x, y)) EQUALS “enemy” THEN
-                        SET Legalmove to TRUE
-                    ENDIF
-
-		ENDIF
-
-	ENDIF
-RETURN legalmove
-
-END checkmovePawn()
-
-'''
-
-'''
-def checkMovePawn(start_pos, end_pos):
-    move_legal = False
-    if start_pos[0] != end_pos[0]:
-        if start_pos[1] != end_pos[1]:
-            if start_pos[1] ==
-        else:
-            return False
-    else:
-        return False
-
-'''
 def reset_board():
     #For every "Cell" on the board
     for i in range(len(board)):
