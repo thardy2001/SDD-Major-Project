@@ -1,3 +1,6 @@
+
+import moveRules.py
+
 gameRunning = True
 turn = True
 #Create Board Positions
@@ -85,46 +88,6 @@ def reset_board():
 
 
 
-def checkMovePawn(start_rank, start_column, end_rank, end_column):
-    return True
-
-def checkMoveRook(start_rank, start_column, end_rank, end_column):
-    """BEGIN checkmoveRook[startpos, endpos]
-    	SET legalmove to FALSE
-    	IF startpos NOT EQUAL TO endpos THEN
-    		IF startpos(x) EQUALS endpos(x) AND startpos(y) NOT EQUAL endpos(y) THEN
-    			IF checksquarecontent[endpos] THEN
-    				SET legalmove to TRUE
-    			ENDIF
-
-    		ELSEIF startpos(y) EQUALS endpos(y) AND startpos(x) NOT EQUAL endpos(x) THEN
-    			IF checksquarecontent[endpos] = ‘enemy’ OR ‘empty’ THEN
-    				SET legalmove to TRUE
-    			ENDIF
-    		ENDIF
-    ENDIF
-    RETURN legalmove
-    END checkmoveRook[startpos, endpos]
-    """
-    move_legal = True
-    if start_pos != end_pos:
-        if
-    else:
-        return False
-    return True
-
-def checkMoveKnight(start_rank, start_column, end_rank, end_column):
-    return True
-
-def checkMoveBishop(start_rank, start_column, end_rank, end_column):
-    return True
-
-def checkMoveKing(start_rank, start_column, end_rank, end_column):
-    return True
-
-def checkMoveQueen(start_rank, start_column, end_rank, end_column):
-    return True
-
 def displayBoard():
     for i in range(len(board)):
         print(board[i])
@@ -155,18 +118,22 @@ def checkMove(move):
 
     start_pos_column = int(start_pos[1:]) - 1
     piece = RANK[start_pos_rank][start_pos_column]
+    if "W" in piece:
+        team = "W"
+    else:
+        team = "B"
     if "P" in piece:
-        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
+        move_legal = moveRules.checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
     elif "R" in piece:
-        move_legal = checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
+        move_legal =  moveRules.checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
     elif piece == "WB" or piece == "BB":
-        move_legal = checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
+        move_legal =  moveRules.checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
     elif "Q" in piece:
-        move_legal = checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
+        move_legal =  moveRules.checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
     elif "K" in piece:
-        move_legal = checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
+        move_legal =  moveRules.checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
     elif "N" in piece:
-        move_legal = checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column)
+        move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team)
 
 
 
