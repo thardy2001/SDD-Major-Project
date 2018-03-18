@@ -72,28 +72,30 @@ def checkMove(move, RANK, turn, board):
         move_legal = False
         makeMove(RANK, turn, board)
     elif piece_team == 'E':
+        move_legal = False
         print('No piece in',start_pos)
+        makeMove(RANK, turn, board)
+
+
+    if "P" in piece:
+        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    elif "R" in piece:
+        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    elif piece == "WB" or piece == "BB":
+        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    elif "Q" in piece:
+        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    elif "K" in piece:
+        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    elif "N" in piece:
+        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+
     if move_legal == True:
         performMove(start_pos_rank, start_pos_column, end_pos, RANK)
         print(start_pos, piece, "moves to", end_pos)
         return True
     else:
         return False
-
-    if "P" in piece:
-        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
-    elif "R" in piece:
-        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
-    elif piece == "WB" or piece == "BB":
-        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
-    elif "Q" in piece:
-        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
-    elif "K" in piece:
-        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
-    elif "N" in piece:
-        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, team, start_pos, end_pos, board)
-
-
 
 
 
