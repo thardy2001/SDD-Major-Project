@@ -19,4 +19,10 @@ displayBoard(board)
 
 
 while gameRunning == True:
-    makeMove(RANK, turn, board)
+    makeMove(RANK, board, turn)
+
+    if turn == "W":
+        turn = "B"
+    else:
+        turn = "W"
+    print("Turn:", turn)

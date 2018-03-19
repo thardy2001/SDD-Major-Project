@@ -1,14 +1,8 @@
 Stuff That Needs Implementation:
 
---> Making sure that the turn order is white-black-white-black etc... If a black piece is
-    attempting to move when its whites turn print "it's not blacks turn" and then get them to
-    re-enter their move.
-
---> If a player attempts to move a piece from an empty cell print try again.
-
 --> Make a move illegal if a piece is blocking the path.
 
---> Check :(
+--> Check
 
 --> Promoting Pawns at the end
 
@@ -21,4 +15,10 @@ Stuff That Works:
 
 --> Displaying The Board
 
---> Resetting the board 
+--> Resetting the board
+
+--> If a player attempts to move a piece from an empty cell print try again.
+
+--> Making sure that the turn order is white-black-white-black etc... If a black piece is
+    attempting to move when its whites turn print "it's not blacks turn" and then get them to
+    re-enter their move.

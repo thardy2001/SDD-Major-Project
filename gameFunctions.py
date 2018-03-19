@@ -40,12 +40,13 @@ def performMove(start_rank,start_column, end_pos, RANK):
     end_column = end_pos[1:]
 
     #Make Move
-    RANK[end_rank.upper()][int(end_column)-1] = RANK[start_rank.upper()][int(start_column)-1]
+    RANK[end_rank.upper()][int(end_column)-1] = RANK[start_rank.upper()][int(start_column)]
     RANK[start_rank][start_column] = '  '
 
-def checkMove(move, RANK, turn, board):
-    move_legal = False
 
+
+def checkMove(move, RANK, board, turn):
+    move_legal = False
     moves = move.split("x")
     start_pos = moves[0]
     end_pos = moves[1]
@@ -59,22 +60,14 @@ def checkMove(move, RANK, turn, board):
 
     start_pos_column = int(start_pos[1:]) - 1
     piece = RANK[start_pos_rank][start_pos_column]
+
     piece_team = checkTeam(start_pos,board)
+    if piece_team != turn:
+        print("It is not your turn!")
+        return False
 
 
 
-    if piece_team == 'W' and turn == "B":
-        print("It is Black's Turn")
-        move_legal = False
-        makeMove(RANK, turn, board)
-    elif piece_team == 'B' and turn == 'W':
-        print("It is White's Turn")
-        move_legal = False
-        makeMove(RANK, turn, board)
-    elif piece_team == 'E':
-        move_legal = False
-        print('No piece in',start_pos)
-        makeMove(RANK, turn, board)
 
 
     if "P" in piece:
@@ -93,6 +86,8 @@ def checkMove(move, RANK, turn, board):
     if move_legal == True:
         performMove(start_pos_rank, start_pos_column, end_pos, RANK)
         print(start_pos, piece, "moves to", end_pos)
+        print("Move complete!")
+        turn = 'B'
         return True
     else:
         return False
@@ -100,22 +95,20 @@ def checkMove(move, RANK, turn, board):
 
 
 
-def makeMove(RANK, turn, board):
+def makeMove(RANK, board, turn):
     move = input("Make Your Move:") # moves must be in the format B2xD2 that is, starting position x ending position
-    if checkMove(move, RANK, turn, board) == False:
+    if checkMove(move, RANK, board, turn) == False:
         print("Illigal Move")
-        makeMove(RANK, turn, board)
+        makeMove(RANK , board, turn)
     else:
-        print("Move complete!")
+
         displayBoard(board)
-        turn = 'B'
+
 
 def checkTeam (coordinate, board):
     #E- Empty
     #B - Black
     #W - White
-
-
     co1 = changeRankToDigit(coordinate[0])
     co2 = int(coordinate[1])-1
     content = board[7-co1][co2]
@@ -144,24 +137,7 @@ def changeRankToDigit(rank):
     'F': 5,
     'G': 6,
     'H': 7,
-    'I': 8,
-    'J': 9,
-    'K': 10,
-    'L': 11,
-    'M': 12,
-    'N': 13,
-    'O': 14,
-    'P': 15,
-    'Q':16,
-    'R':17,
-    'S':18,
-    'T':19,
-    'U':20,
-    'V':21,
-    'W':22,
-    'X':23,
-    'Y':24,
-    'Z':25
+
     }
     digit = conversion[rank.upper()]
     return digit
