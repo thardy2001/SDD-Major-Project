@@ -83,10 +83,22 @@ def checkMove(move, RANK, board, turn):
     elif "N" in piece:
         move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
 
+
+
+
     if move_legal == True:
         performMove(start_pos_rank, start_pos_column, end_pos, RANK)
+        checked = testForCheck(board)
+        if turn == checked:
+            print("Illegal Move! That Would Be Check!")
+            return False
+            performMove(end_pos_rank, end_pos_column, start_pos, RANK)
+        elif turn == "W" and checked == "B":
+            print("White has Checked Black!")
+        elif turn == "B" and checked == "W":
+            print("Black has Checked White!")
+
         print(start_pos, piece, "moves to", end_pos)
-        print("Move complete!")
         turn = 'B'
         return True
     else:
@@ -120,7 +132,83 @@ def checkTeam (coordinate, board):
         return colour
 
 def testForCheck(board):
-    return False
+    for rank in range(len(board)):
+        for cell in range(len(board[rank])):
+            #Empty Cell
+            if board[rank][cell]  == "WK":
+                WK_pos_rank = changeDigitToRank(rank)
+                WK_pos_column = cell
+                WK_pos = WK_pos_rank + str(WK_pos_column)
+            elif board[rank][cell] == "BK":
+                BK_pos_rank = changeDigitToRank(rank)
+                BK_pos_column = cell
+                BK_pos = BK_pos_rank + str(BK_pos_column)
+
+    for rank in range(len(board)):
+        for cell in range(len(board[rank])):
+            #Empty Cell
+            if board[rank][cell] != "  ":
+                start_pos = changeDigitToRank(rank) + str(cell)
+                piece = board[rank][cell]
+                team = piece[:1]
+                piece_type = piece[1:]
+                if team == "B":
+                    if piece_type == "P":
+                        if moveRules.checkMovePawn(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                            return "W"
+                    elif piece_type == "B":
+                        if moveRules.checkMoveBishop(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                            return "W"
+                    elif piece_type == "Q":
+                        if moveRules.checkMovePawn(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                            return "W"
+                    elif piece_type == "K":
+                        if moveRules.checkMoveKing(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                            return "W"
+                    elif piece_type == "N":
+                        if moveRules.checkMoveKnight(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                            return "W"
+                    elif piece_type == "R":
+                        if moveRules.checkMoveRook(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                            return "W"
+                else:
+                    if piece_type == "P":
+                        if moveRules.checkMovePawn(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                            return "B"
+                    elif piece_type == "B":
+                        if moveRules.checkMoveBishop(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                            return "B"
+                    elif piece_type == "Q":
+                        if moveRules.checkMoveQueen(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                            return "B"
+                    elif piece_type == "K":
+                        if moveRules.checkMoveKing(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                            return "B"
+                    elif piece_type == "N":
+                        if moveRules.checkMoveKnight(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                            return "B"
+                    elif piece_type == "R":
+                        if moveRules.checkMoveRook(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                            return "B"
+
+
+
+
+def changeDigitToRank(rank):
+    conversion = {
+    0 :'A',
+    1 :'B',
+    2 :'C',
+    3 :'D',
+    4 :'E',
+    5 :'F',
+    6 :'G',
+    7 :'H',
+
+    }
+    r = conversion[rank]
+    return r
+
 
 def changeRankToDigit(rank):
     """
