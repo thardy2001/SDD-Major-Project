@@ -1,4 +1,4 @@
-from moveRules import *
+import moveRules
 
 def reset_board(board, RANK):
     #For every "Cell" on the board
@@ -71,17 +71,17 @@ def checkMove(move, RANK, board, turn):
 
 
     if "P" in piece:
-        move_legal = checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+        move_legal = moveRules.checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
     elif "R" in piece:
-        move_legal =  checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+        move_legal =  moveRules.checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
     elif piece == "WB" or piece == "BB":
-        move_legal =  checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+        move_legal =  moveRules.checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
     elif "Q" in piece:
-        move_legal =  checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+        move_legal =  moveRules.checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
     elif "K" in piece:
-        move_legal =  checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+        move_legal =  moveRules.checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
     elif "N" in piece:
-        move_legal =  checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+        move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
 
     if move_legal == True:
         performMove(start_pos_rank, start_pos_column, end_pos, RANK)
@@ -119,7 +119,8 @@ def checkTeam (coordinate, board):
     else:
         return colour
 
-
+def testForCheck(board):
+    return False
 
 def changeRankToDigit(rank):
     """
