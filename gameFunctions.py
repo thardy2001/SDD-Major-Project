@@ -32,7 +32,8 @@ def reset_board(board, RANK):
 
 def displayBoard(board):
     for i in range(len(board)):
-        print(board[i])
+        print(changeDigitToRank(7- i),board[i])
+    print("    1     2     3     4     5     6     7     8")
 
 def performMove(start_rank,start_column, end_pos, RANK):
     #Get End Position Details

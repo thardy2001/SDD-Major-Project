@@ -1,33 +1,46 @@
 from gameFunctions import *
 
 def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_pos, end_pos, board):
+    print("start_rank:", start_rank)
+    print("start_column:",start_column)
+    print("end_rank:", end_rank)
+    print("end_column:", end_column)
+    print("team:", team)
+    print("start_pos:", start_pos)
+    print("end_pos:", end_pos)
+
     if team == "W":
-        if changeRankToDigit(start_rank) == 1:
-            if changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == 2 and board[changeRankToDigit(end_rank)][end_column] == "  " and abs(start_column - end_column) == 0 or changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and abs(start_column - end_column) == 0:
-                return True
-            elif changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == 1 and checkTeam(end_pos, board) == "B" and abs(start_column - end_column) == 1:
-                return True
+        if start_pos != end_pos:
+            if start_rank == "B":
+                if changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 2 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                    return True
+                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                    return True
+                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "B" and abs(start_column - end_column) == 1:
+                    return True
+            if start_rank != "B":
+                if changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                    return True
+                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "B" and abs(start_column - end_column) == 1:
+                    return True
 
-        elif changeRankToDigit(start_rank) != 1:
-            if changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and abs(start_column - end_column) == 0:
-                return True
-            elif changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == 1 and checkTeam(end_pos, board) == "B" and abs(start_column - end_column) == 1:
-                return True
-    elif team == "B":
-        if changeRankToDigit(start_rank) == 6:
-            if changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == -2 and board[changeRankToDigit(end_rank)][end_column] == "  " and abs(start_column - end_column) == 0 or changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == -1 and board[changeRankToDigit(end_rank)][end_column] == "  " and abs(start_column - end_column) == 0:
-                return True
-            elif changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == -1 and checkTeam(end_pos, board) == "W" and abs(start_column - end_column) == 1:
-                return True
 
-        elif changeRankToDigit(start_rank) != 6 :
-            if changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == -1 and board[changeRankToDigit(end_rank)][end_column] == "  " and abs(start_column - end_column) == 0:
-                return True
-            elif changeRankToDigit(end_rank)- changeRankToDigit(start_rank) == -1 and checkTeam(end_pos, board) == "W" and abs(start_column - end_column) == 1:
-                return True
-    else:
+    if team == "B":
+        if start_pos != end_pos:
+            if start_rank == "G":
+                if changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 2 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                    return True
+                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                    return True
+                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "W" and abs(start_column - end_column) == 1:
+                    return True
+            if start_rank != "G":
+                if changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                    return True
+                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "W" and abs(start_column - end_column) == 1:
+                    return True
+
         return False
-    return False
 
 def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_pos, end_pos, board):
 
@@ -44,15 +57,20 @@ def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_po
 
 
 def checkMoveKnight(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
-
-    if abs(changeRankToDigit(start_rank) - changeRankToDigit(end_rank)) == 2 and  abs(start_column - end_column) == 1  or abs(changeRankToDigit(start_rank) - changeRankToDigit(end_rank)) == 1 and  abs(start_column - end_column) == 2 :
-        print("The piece in the square:",end_rank, end_column, board[changeRankToDigit(end_rank)][end_column][:1])
-        if checkTeam(end_pos, board) == team:
-            return False
+    print(team, checkTeam(end_pos, board))
+    if start_pos != end_pos:
+        if abs(changeRankToDigit(start_rank) - changeRankToDigit(end_rank)) == 2 and  abs(start_column - end_column) == 1:
+            if checkTeam(end_pos, board) == team:
+                return False
+            else:
+                return True
+        if abs(changeRankToDigit(start_rank) - changeRankToDigit(end_rank)) == 1 and  abs(start_column - end_column) == 2 :
+            if checkTeam(end_pos, board) == team:
+                return False
+            else:
+                return True
         else:
-            return True
-    else:
-        return False
+            return False
     return False
 def checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
     if start_pos != end_pos:
