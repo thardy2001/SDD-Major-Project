@@ -1,13 +1,6 @@
 from gameFunctions import *
 
 def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_pos, end_pos, board):
-    print("start_rank:", start_rank, "start_rank as digit:",changeRankToDigit(start_rank))
-    print("start_column:",start_column)
-    print("end_rank:", end_rank, "end_rank as digit:",changeRankToDigit(end_rank))
-    print("end_column:", end_column)
-    print("team:", team)
-    print("start_pos:", start_pos)
-    print("end_pos:", end_pos)
 
     if team == "W":
         if start_pos != end_pos:

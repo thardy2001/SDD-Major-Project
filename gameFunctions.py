@@ -1,4 +1,5 @@
 import moveRules
+import artificial_player
 
 def reset_board(board, RANK):
     #For every "Cell" on the board
@@ -64,7 +65,7 @@ def checkMove(move, RANK, board, turn):
 
     piece_team = checkTeam(start_pos,board)
     if piece_team != turn:
-        print("It is not your turn!")
+        print("It's not your turn!")
         return False
 
 
@@ -109,6 +110,8 @@ def checkMove(move, RANK, board, turn):
 
 
 def makeMove(RANK, board, turn):
+    if turn == "B":
+        artificial_player.makeAImove(board, RANK)
     move = input("Make Your Move:") # moves must be in the format B2xD2 that is, starting position x ending position
     if checkMove(move, RANK, board, turn) == False:
         print("Illigal Move")
