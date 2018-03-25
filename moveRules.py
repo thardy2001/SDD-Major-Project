@@ -24,24 +24,17 @@ def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_po
                 elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "B" and abs(start_column - end_column) == 1:
                     return True
 
-    print(team=="B")
-    print(start_pos!=end_pos)
-    print(changeRankToDigit(end_rank) - changeRankToDigit(start_rank))
-    print(changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 2)
-    print(board[changeRankToDigit(end_rank)][end_column] == "  ")
-    print(start_column - end_column == 0)
-
     if team == "B":
         if start_pos != end_pos:
             if start_rank == "G":
-                if changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 2 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                if changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 2 and board[7-changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
                     return True
-                elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and board[7-changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
                     return True
                 elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and checkTeam(end_pos,board) == "W" and abs(start_column - end_column) == 1:
                     return True
             if start_rank != "G":
-                if changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
+                if changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and board[7-changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
                     return True
                 elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and checkTeam(end_pos,board) == "W" and abs(start_column - end_column) == 1:
                     return True
