@@ -1,42 +1,72 @@
 from gameFunctions import *
 
-def checkMovePawn(start_rank, start_column, end_rank, end_column, team ,start_pos, end_pos, board):
+def checkMovePawnW(start_rank, start_column, end_rank, end_column,start_pos, end_pos, board): # Returns True or false based on the legality of a move
+    start_column = int(start_column)
+    end_column = int(end_column)
+
+    start_rank = changeRankToDigit(start_rank)
+    end_rank = changeRankToDigit(end_rank)
+    print("Start Rank:", start_rank)
+    print("End Rank:", end_rank)
+    print("Start Column:", start_column)
+    print("End Column:", end_column)
+    #IF starting position is different to ending position THEN
+    if start_pos != end_pos:
+        #IF the piece starting location is on rank B THEN
+        if start_rank == "B" or start_rank == 2:
+            #IF change in rank == 2 AND change in column == 0 AND end squre is empty OR change in rank == 1 AND change in column == 0 AND end squre is empty THEN
+            if end_rank - start_rank == 2 and end_column - start_column == 0 and board[end_rank][end_column] == "  " or end_rank - start_rank == 1 and end_column - start_column == 0 and board[end_rank][end_column] == "  ":
+                #the move is legal
+                return True
+            #ELSE IF change in rank == 1 AND change in column == 1 AND end square contains an enemy piece THEN
+            elif end_rank - start_rank == 1 and abs(end_column - start_column) == 1 and board[end_rank][end_column][:1] == "B":
+                #the move is legal
+                return True
+        #ELSE THEN
+        else:
+            #IF change in rank == 1 AND chagne in column == 0 AND end square is empty THEN
+            if end_rank - start_rank == 1 and start_column - end_column == 0 and board[end_rank][end_column] == "  ":
+                #the move is legal
+                return True
+            #ELSE IF change in rank == 1 AND change in column == 1 AND end square has an enemy piece THEN
+            elif end_rank - start_rank == 1 and abs(end_column - start_column) == 1 and board[end_rank][end_column][:1] == "B":
+                #the move is legal
+                return True
+
     return False
-'''
-    if team == "W":
-        if start_pos != end_pos:
-            if start_rank == "B":
-                if changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 2 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
-                    return True
-                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
-                    return True
-                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "B" and abs(start_column - end_column) == 1:
-                    return True
-            if start_rank != "B":
-                if changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and board[changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
-                    return True
-                elif changeRankToDigit(end_rank) - changeRankToDigit(start_rank) == 1 and checkTeam(end_pos,board) == "B" and abs(start_column - end_column) == 1:
-                    return True
 
-    if team == "B":
-        if start_pos != end_pos:
-            if start_rank == "G":
-                if changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 2 and board[7-changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
-                    return True
-                elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and board[7-changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
-                    return True
-                elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and checkTeam(end_pos,board) == "W" and abs(start_column - end_column) == 1:
-                    return True
-            if start_rank != "G":
-                if changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and board[7-changeRankToDigit(end_rank)][end_column] == "  " and start_column - end_column == 0:
-                    return True
-                elif changeRankToDigit(start_rank) - changeRankToDigit(end_rank) == 1 and checkTeam(end_pos,board) == "W" and abs(start_column - end_column) == 1:
-                    return True
+def checkMovePawnB(start_rank, start_column, end_rank, end_column,start_pos, end_pos, board):# Returns True or false based on the legality of a move
+    start_column = int(start_column)
+    end_column = int(end_column)
 
-        return False
-'''
+    start_rank = changeRankToDigit(start_rank)
+    end_rank = changeRankToDigit(end_rank)
+    #IF starting position is different to ending position THEN
+    if start_pos != end_pos:
+        #IF the piece starting location is on rank G THEN
+        if start_rank == "G" or 6:
+            #IF change in rank == -2 AND change in column == 0 AND end squre is empty OR change in rank == -1 AND change in column == 0 AND end squre is empty THEN
+            if end_rank - start_rank == -2 and end_column - start_column == 0 and board[end_rank][end_column] == "  " or end_rank - start_rank == -1 and end_column - start_column == 0 and board[end_rank][end_column] == "  ":
+                #the move is legal
+                return True
+            #ELSE IF change in rank == -1 AND change in column == 1 AND end square contains an enemy piece THEN
+            elif end_rank - start_rank == -1 and abs(end_column - start_column) == 1 and board[end_rank][end_column][:1] == "W":
+                #the move is legal
+                return True
+        #ELSE THEN
+        else:
+            #IF change in rank == -1 AND chagne in column == 0 AND end square is empty THEN
+            if end_rank - start_rank == -1 and end_column - start_column == 0 and board[end_rank][end_column] == "  ":
+                #the move is legal
+                return True
+            #ELSE IF change in rank == -1 AND change in column == 1 AND end square has an enemy piece THEN
+            elif end_rank - start_rank == -1 and abs(end_rank - start_rank) == 1 and board[end_rank][end_column][:1] == "W":
+                #the move is legal
+                return True
 
-def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_pos, end_pos, board):
+    return False
+
+def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_pos, end_pos, board): # Returns True or false based on the legality of a move
     # If the piece has acctually moved
     if start_pos != end_pos:
         # If the rank has stayed the same but column has changed (horazontal straight line)
@@ -54,7 +84,7 @@ def checkMoveRook(start_rank, start_column, end_rank, end_column, team, start_po
     return False
 
 
-def checkMoveKnight(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
+def checkMoveKnight(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):# Returns True or false based on the legality of a move
 
     #Has the piece changed Position?
     if start_pos != end_pos:
@@ -77,7 +107,7 @@ def checkMoveKnight(start_rank, start_column, end_rank, end_column, team,start_p
 
     return False
 
-def checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
+def checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):# Returns True or false based on the legality of a move
     # has the piece moved ?
     if start_pos != end_pos:
         # Is the change in x coordinate the same as the change in y coordinate ? (Diagonal movement)
@@ -87,7 +117,7 @@ def checkMoveBishop(start_rank, start_column, end_rank, end_column, team,start_p
                 return True
     return False
 
-def checkMoveKing(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
+def checkMoveKing(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):# Returns True or false based on the legality of a move
     # Has the piece moved ?
     if start_pos != end_pos:
         # Is the end position adjacent to the starting position ? (1 square away vertically, horazontally or diagonally)
@@ -96,7 +126,7 @@ def checkMoveKing(start_rank, start_column, end_rank, end_column, team,start_pos
                 return True
     return False
 
-def checkMoveQueen(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
+def checkMoveQueen(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):# Returns True or false based on the legality of a move
     # Is the move legal by rook standard rules ?
     if checkMoveRook(start_rank, start_column, end_rank, end_column, team,start_pos, end_pos, board):
         return True

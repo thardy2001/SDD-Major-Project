@@ -1,7 +1,10 @@
 import moveRules
 import artificial_player
 
+
 def reset_board(board, RANK):
+    global r
+    r = RANK
     #For every "Cell" on the board
     for i in range(len(board)):
         for k in range(len(board[i])):
@@ -37,8 +40,10 @@ def displayBoard(board):
         print(changeDigitToRank(7- i),board[i])
     print("    1     2     3     4     5     6     7     8")
 
-def performMove(start_rank,start_column, end_pos, RANK):
+def performMove(start_rank,start_column, end_pos):
     #Get End Position Details
+
+    RANK = r
     end_rank = end_pos[:1]
     end_column = end_pos[1:]
 
@@ -82,9 +87,9 @@ def checkMove(move, RANK, board, turn):
 
 
 
-    #If the piece is a Pawn
-    if "P" in piece:
-        move_legal = moveRules.checkMovePawn(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    #If the piece is a White Pawn
+    if "WP" in piece:
+        move_legal = moveRules.checkMovePawnW(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, start_pos, end_pos, board)
     #If the piece is a Rook
     elif "R" in piece:
         move_legal =  moveRules.checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
@@ -100,13 +105,16 @@ def checkMove(move, RANK, board, turn):
     #If the piece is a Knight
     elif "N" in piece:
         move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
+    #If the piece is a Black Pawn
+    if "BP" in piece:
+        move_legal = moveRules.checkMovePawnB(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, start_pos, end_pos, board)
 
 
 
     #If the move tested was legal
     if move_legal == True:
         #Make the move occur
-        performMove(start_pos_rank, start_pos_column, end_pos, RANK)
+        performMove(start_pos_rank, start_pos_column, end_pos)
         #Is it check ?
         checked = testForCheck(board)
         # If it is check for the player who moved the piece then the move is Illigal
@@ -114,7 +122,7 @@ def checkMove(move, RANK, board, turn):
             print("Illegal Move! That Would Be Check!")
             return False
             #Revert the move
-            performMove(end_pos_rank, end_pos_column, start_pos, RANK)
+            performMove(end_pos_rank, end_pos_column, start_pos)
         #If it isn't the above case but still check
         elif turn == "W" and checked == "B":
             print("White has Checked Black!")
@@ -122,8 +130,8 @@ def checkMove(move, RANK, board, turn):
             print("Black has Checked White!")
         #Print what has moved grom where to where
         print(start_pos, piece, "moves to", end_pos)
-        #Change the turn
-        turn = 'B'
+
+
         return True
     else:
         return False
@@ -136,6 +144,7 @@ def makeMove(RANK, board, turn):
     if turn == "B":
         #Have AI make Move
         artificial_player.AImove(board)
+        turn = "W"
     #Take in a move
     move = input("Make Your Move:") # moves must be in the format B2xD2 that is, starting position x ending position
     #Test if the move is legal or not
@@ -190,66 +199,54 @@ def testForCheck(board):
                 piece_type = piece[1:]
                 # If the piece is the black team
                 if team == "B":
-                    #If the piece is a Pawn
+                    #If the piece is a Black Pawn
                     if piece_type == "P":
-                        # Test if the piece can move to the location of the opposing teams king
-                        if moveRules.checkMovePawn(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                        if moveRules.checkMovePawnB(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, start_pos, WK_pos, board):
                             return "W"
                     #If the piece is a Bishop
                     elif piece_type == "B":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveBishop(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
                             return "W"
                     #If the piece is a Queen
                     elif piece_type == "Q":
-                        # Test if the piece can move to the location of the opposing teams king
-                        if moveRules.checkMovePawn(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
+                        if moveRules.checkMoveQueen(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
                             return "W"
                     #If the piece is a King
                     elif piece_type == "K":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveKing(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
                             return "W"
                     #If the piece is a Knight
                     elif piece_type == "N":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveKnight(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
                             return "W"
                     #If the piece is a Rook
                     elif piece_type == "R":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveRook(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
                             return "W"
                 # If it is a white piece
                 else:
                     #If the piece is a Pawn
                     if piece_type == "P":
-                        # Test if the piece can move to the location of the opposing teams king
-                        if moveRules.checkMovePawn(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
+                        if moveRules.checkMovePawnW(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, start_pos, BK_pos, board):
                             return "B"
                     #If the piece is a Bishop
                     elif piece_type == "B":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveBishop(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
                             return "B"
                     #If the piece is a Queen
                     elif piece_type == "Q":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveQueen(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
                             return "B"
                     #If the piece is a King
                     elif piece_type == "K":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveKing(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
                             return "B"
                     #If the piece is a Knight
                     elif piece_type == "N":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveKnight(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
                             return "B"
                     #If the piece is a Rook
                     elif piece_type == "R":
-                        # Test if the piece can move to the location of the opposing teams king
                         if moveRules.checkMoveRook(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
                             return "B"
 
