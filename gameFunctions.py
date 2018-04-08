@@ -1,10 +1,10 @@
-import moveRules
-import artificial_player
 
 
-def reset_board(board, RANK):
-    global r
-    r = RANK
+from AI import *
+
+
+def reset_board(board): # --> Restart The game, put all pieces back in their starting positions 
+
     #For every "Cell" on the board
     for i in range(len(board)):
         for k in range(len(board[i])):
@@ -12,262 +12,27 @@ def reset_board(board, RANK):
             board[i][k] = '  '
     #Place All Pawns
     for i in range(8):
-        RANK["B"][i] = "WP"
-        RANK["G"][i] = "BP"
+        board[1][i] = "WP"
+        board[6][i] = "BP"
     #Place the rest of the pieces
         #White
-    RANK["A"][0] = "WR"
-    RANK["A"][1] = "WN"
-    RANK["A"][2] = "WB"
-    RANK["A"][3] = "WQ"
-    RANK["A"][4] = "WK"
-    RANK["A"][5] = "WB"
-    RANK["A"][6] = "WN"
-    RANK["A"][7] = "WR"
+    board[0][0] = "WR"
+    board[0][1] = "WN"
+    board[0][2] = "WB"
+    board[0][3] = "WQ"
+    board[0][4] = "WK"
+    board[0][5] = "WB"
+    board[0][6] = "WN"
+    board[0][7] = "WR"
         #Black
-    RANK["H"][0] = "BR"
-    RANK["H"][1] = "BN"
-    RANK["H"][2] = "BB"
-    RANK["H"][3] = "BQ"
-    RANK["H"][4] = "BK"
-    RANK["H"][5] = "BB"
-    RANK["H"][6] = "BN"
-    RANK["H"][7] = "BR"
-
-def displayBoard(board):
-    #Print the labels for ranks and files
-    for i in range(len(board)):
-        print(changeDigitToRank(7- i),board[i])
-    print("    1     2     3     4     5     6     7     8")
-
-def performMove(start_rank,start_column, end_pos):
-    #Get End Position Details
-
-    RANK = r
-    end_rank = end_pos[:1]
-    end_column = end_pos[1:]
-
-    #Make Move
-    RANK[end_rank.upper()][int(end_column)-1] = RANK[start_rank.upper()][int(start_column)]
-    RANK[start_rank][start_column] = '  '
-
-
-
-def checkMove(move, RANK, board, turn):
-    move_legal = False
-
-    #Seperate the given move into where the peice is and where the user wants it
-    moves = move.split("x")
-    start_pos = moves[0]
-    end_pos = moves[1]
-
-    #Break down the known start position of the piece into its rank and column position values
-    start_pos_rank = start_pos[:1]
-    start_pos_rank = start_pos_rank.upper()
-
-    #Break down the known target position of the piece into its rank and column position values
-    end_pos_rank = end_pos[:1]
-    end_pos_rank = end_pos_rank.upper()
-
-    #Account for lists index counting starting at 0 not one as on the board
-    start_pos_column = int(start_pos[1:]) - 1
-    end_pos_column = int(end_pos[1:]) -1
-
-
-    #Get the piece the player wants to move
-    piece = RANK[start_pos_rank][start_pos_column]
-    #What team is the piece?
-    piece_team = checkTeam(start_pos,board)
-
-    #If the piece is of the wrong team
-    if piece_team != turn:
-        print("It's not your turn!")
-        return False
-
-
-
-
-    #If the piece is a White Pawn
-    if "WP" in piece:
-        move_legal = moveRules.checkMovePawnW(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, start_pos, end_pos, board)
-    #If the piece is a Rook
-    elif "R" in piece:
-        move_legal =  moveRules.checkMoveRook(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
-    #If the piece is a Bishop
-    elif "B" in piece:
-        move_legal =  moveRules.checkMoveBishop(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
-    #If the piece is a Queen
-    elif "Q" in piece:
-        move_legal =  moveRules.checkMoveQueen(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
-    #If the piece is a King
-    elif "K" in piece:
-        move_legal =  moveRules.checkMoveKing(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
-    #If the piece is a Knight
-    elif "N" in piece:
-        move_legal =  moveRules.checkMoveKnight(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, piece_team, start_pos, end_pos, board)
-    #If the piece is a Black Pawn
-    if "BP" in piece:
-        move_legal = moveRules.checkMovePawnB(start_pos_rank, start_pos_column, end_pos_rank, end_pos_column, start_pos, end_pos, board)
-
-
-
-    #If the move tested was legal
-    if move_legal == True:
-        #Make the move occur
-        performMove(start_pos_rank, start_pos_column, end_pos)
-        #Is it check ?
-        checked = testForCheck(board)
-        # If it is check for the player who moved the piece then the move is Illigal
-        if turn == checked:
-            print("Illegal Move! That Would Be Check!")
-            return False
-            #Revert the move
-            performMove(end_pos_rank, end_pos_column, start_pos)
-        #If it isn't the above case but still check
-        elif turn == "W" and checked == "B":
-            print("White has Checked Black!")
-        elif turn == "B" and checked == "W":
-            print("Black has Checked White!")
-        #Print what has moved grom where to where
-        print(start_pos, piece, "moves to", end_pos)
-
-
-        return True
-    else:
-        return False
-
-
-
-
-def makeMove(RANK, board, turn):
-    #If it is blacks turn
-    if turn == "B":
-        #Have AI make Move
-        artificial_player.AImove(board)
-        turn = "W"
-    #Take in a move
-    move = input("Make Your Move:") # moves must be in the format B2xD2 that is, starting position x ending position
-    #Test if the move is legal or not
-    if checkMove(move, RANK, board, turn) == False:
-        print("Illigal Move")
-        #Resubmit the queiry, ask for a new move
-        makeMove(RANK , board, turn)
-    else:
-        #Display the board after the appropriate move has been made
-        displayBoard(board)
-
-
-def checkTeam (coordinate, board):
-    #E- Empty
-    #B - Black
-    #W - White
-
-    co1 = changeRankToDigit(coordinate[0])
-    co2 = int(coordinate[1])-1
-    content = board[7-co1][co2]
-    colour = content[0]
-
-    if content == '  ':
-        return 'E'
-    else:
-        return colour
-
-def testForCheck(board):
-    #Test every square in the board
-    for rank in range(len(board)):
-        for cell in range(len(board[rank])):
-            # Does the square contain the white king ?
-            if board[rank][cell]  == "WK":
-                WK_pos_rank = changeDigitToRank(rank)
-                WK_pos_column = cell
-                WK_pos = WK_pos_rank + str(WK_pos_column)
-            # Does the square contain the black king ?
-            elif board[rank][cell] == "BK":
-                BK_pos_rank = changeDigitToRank(rank)
-                BK_pos_column = cell
-                BK_pos = BK_pos_rank + str(BK_pos_column)
-    #Test every square on the board
-    for rank in range(len(board)):
-        for cell in range(len(board[rank])):
-
-            # If there is a piece is in the square
-            if board[rank][cell] != "  ":
-                start_pos = changeDigitToRank(rank) + str(cell)
-                #What is the piece, type and team
-                piece = board[rank][cell]
-                team = piece[:1]
-                piece_type = piece[1:]
-                # If the piece is the black team
-                if team == "B":
-                    #If the piece is a Black Pawn
-                    if piece_type == "P":
-                        if moveRules.checkMovePawnB(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, start_pos, WK_pos, board):
-                            return "W"
-                    #If the piece is a Bishop
-                    elif piece_type == "B":
-                        if moveRules.checkMoveBishop(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
-                            return "W"
-                    #If the piece is a Queen
-                    elif piece_type == "Q":
-                        if moveRules.checkMoveQueen(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
-                            return "W"
-                    #If the piece is a King
-                    elif piece_type == "K":
-                        if moveRules.checkMoveKing(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
-                            return "W"
-                    #If the piece is a Knight
-                    elif piece_type == "N":
-                        if moveRules.checkMoveKnight(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
-                            return "W"
-                    #If the piece is a Rook
-                    elif piece_type == "R":
-                        if moveRules.checkMoveRook(changeDigitToRank(rank),cell, WK_pos_rank,WK_pos_column, team, start_pos, WK_pos, board):
-                            return "W"
-                # If it is a white piece
-                else:
-                    #If the piece is a Pawn
-                    if piece_type == "P":
-                        if moveRules.checkMovePawnW(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, start_pos, BK_pos, board):
-                            return "B"
-                    #If the piece is a Bishop
-                    elif piece_type == "B":
-                        if moveRules.checkMoveBishop(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
-                            return "B"
-                    #If the piece is a Queen
-                    elif piece_type == "Q":
-                        if moveRules.checkMoveQueen(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
-                            return "B"
-                    #If the piece is a King
-                    elif piece_type == "K":
-                        if moveRules.checkMoveKing(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
-                            return "B"
-                    #If the piece is a Knight
-                    elif piece_type == "N":
-                        if moveRules.checkMoveKnight(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
-                            return "B"
-                    #If the piece is a Rook
-                    elif piece_type == "R":
-                        if moveRules.checkMoveRook(changeDigitToRank(rank),cell, BK_pos_rank,BK_pos_column, team, start_pos, BK_pos, board):
-                            return "B"
-
-
-
-
-def changeDigitToRank(rank):
-    conversion = {
-    0 :'A',
-    1 :'B',
-    2 :'C',
-    3 :'D',
-    4 :'E',
-    5 :'F',
-    6 :'G',
-    7 :'H',
-
-    }
-    r = conversion[rank]
-    return r
-
+    board[7][0] = "BR"
+    board[7][1] = "BN"
+    board[7][2] = "BB"
+    board[7][3] = "BQ"
+    board[7][4] = "BK"
+    board[7][5] = "BB"
+    board[7][6] = "BN"
+    board[7][7] = "BR"
 
 def changeRankToDigit(rank):
     """
@@ -289,3 +54,50 @@ def changeRankToDigit(rank):
     }
     digit = conversion[rank.upper()]
     return digit
+
+
+def changeDigitToRank(rank):
+    conversion = {
+    0 :'A',
+    1 :'B',
+    2 :'C',
+    3 :'D',
+    4 :'E',
+    5 :'F',
+    6 :'G',
+    7 :'H',
+
+    }
+    r = conversion[rank]
+    return r
+
+
+
+def squareContent(coordinate, board): # --> Returns "W" or "B" or "E" based on the content of the coordinate provided
+    coordinate_rank = changeRankToDigit(coordinate[:1])
+    coordinate_file = int(coordinate[1:])
+    square_content = board[coordinate_file][coordinate_rank]
+    if square_content[:1] == "W":
+        return "W"
+    elif square_content[:1] == "B":
+        return "B"
+    else:
+        return "E"
+
+def performMove(move, board): # --> takes in a move and performs it. takes item of start coordinate and places it in end coordinate then clears start coordinate
+    move = move.split("x")
+    starting_coordinate = move[0]
+    starting_rank = starting_coordinate[:1].upper()
+    starting_file = starting_coordinate[1:]
+    ending_coordinate = move[1]
+    ending_rank = ending_coordinate[:1].upper()
+    ending_file = ending_coordinate[1:]
+    board[int(ending_file)][changeRankToDigit(ending_rank)] = board[int(starting_file)][changeRankToDigit(starting_rank)]
+    board[int(starting_file)][changeRankToDigit(starting_rank)] = "  "
+
+
+
+def displayBoard(board): # --> Displays the current state of the board
+    for i in range(8):
+        print(8-i, board[7-i])
+    print("    A     B     C     D     E     F     G     H")
