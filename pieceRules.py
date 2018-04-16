@@ -64,6 +64,7 @@ def rookMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
     starting_file = int(starting_coordinate[1:])
     ending_rank = ending_coordinate[:1]
     ending_file = int(ending_coordinate[1:])
+
     team = pieceTeam(starting_coordinate, board)
     move = starting_coordinate + 'x' + ending_coordinate
 
@@ -188,35 +189,45 @@ def findRookBoundaries(move, board):
     starting_row = int(starting_coordinate[1]) - 1
     ending_rank = changeRankToDigit(ending_coordinate[0])
     ending_row = int(ending_coordinate[1]) - 1
+    print("Before first if ")
     if starting_rank - ending_rank != 0:
+        print("after first if ")
         #Left
-        print('0')
+
         if starting_rank - ending_rank > 0:
+
             for i in range(starting_rank - ending_rank):
-                if board[starting_rank - i][starting_row] != '  ':
+
+                if board[starting_rank - i - 1][starting_row] != '  ':
                     bound = i
                     break
         #Right
 
         if starting_rank - ending_rank < 0:
+
             for i in range(abs(starting_rank - ending_rank)):
-                if board[starting_rank + i][starting_row] != '  ':
+
+                if board[starting_rank + i +1][starting_row] != '  ':
                     bound = i
                     break
         return bound
 
     elif starting_row - ending_row != 0:
-        print('1')
+
         #UP
         if starting_rank - ending_rank < 0:
+
             for i in range(abs(starting_rank - ending_rank)):
-                if board[starting_rank + i][starting_row] != '  ':
+
+                if board[starting_rank + i +1 ][starting_row] != '  ':
                     bound = i
                     break
         #Down
         if starting_rank - ending_rank > 0:
+
             for i in range(starting_rank - ending_rank):
-                if board[starting_rank - i][starting_row] != '  ':
+
+                if board[starting_rank - i- 1][starting_row] != '  ':
                     bound = i
                     break
         return bound
