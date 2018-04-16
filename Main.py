@@ -1,30 +1,47 @@
-from moveRules import *
-from gameFunctions import *
+from generalFunctions import *
+import whiteMove
+import AI
 
 
+#Create Board
+board = [   [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']],
+            [['  '],['  '],['  '],['  '],['  '],['  '],['  '],['  ']]  ]
+
+
+'''
+ 8 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 7 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 6 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 5 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 4 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 3 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 2 [  ][  ][  ][  ][  ][  ][  ][  ]
+ 1 [  ][  ][  ][  ][  ][  ][  ][  ]
+    A   B   C   D   E   F   G   H
+'''
 gameRunning = True
-turn = 'W'
-#Create Board Positions
-#         H                          G                          F                          E                          D
-board = [['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','',''],
-#         C                          B                          A
-         ['','','','','','','',''], ['','','','','','','',''], ['','','','','','','','']]
-global RANK
-RANK = {"A":board[7], "B":board[6], "C":board[5], "D":board[4], "E":board[3], "F":board[2], "G":board[1], "H":board[0]}
+turn = "W"
 
+reset_board(board)
 
-
-reset_board(board, RANK)
-
-displayBoard(board)
-
-# While the game is stil going
-while gameRunning == True:
-    makeMove(RANK, board, turn)
-    #Change the turn to the opposing team after a move
+#WHILE game is running THEN
+while gameRunning:
+    displayBoard(board)
+    #IF it is whites turn THEN
     if turn == "W":
+        #run player turn
+        whiteMove.makeMove(board)
         turn = "B"
-    else:
+
+
+    #ELSE THEN
+    elif turn == "B":
+        #run AI turn
+        AI.makeMove(board)
         turn = "W"
-    # Tell the player who's turn it is
-    print("Turn:", turn)
