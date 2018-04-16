@@ -72,6 +72,7 @@ def rookMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
 
         if ending_file - starting_file == 0 and abs(changeRankToDigit(ending_rank) - changeRankToDigit(starting_rank)) != 0:
             bound = findRookBoundaries(move, board)
+            print(bound)
 
             if changeRankToDigit(starting_rank) - changeRankToDigit(ending_rank) < 0:
                 print("change in rank cannot be less than:", bound, "Change in rank is:",changeRankToDigit(starting_rank) - changeRankToDigit(ending_rank) )
@@ -90,6 +91,7 @@ def rookMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
 
         elif ending_file - starting_file != 0 and abs(changeRankToDigit(ending_rank) - changeRankToDigit(starting_rank)) == 0:
             bound = findRookBoundaries(move, board)
+            print(bound)
             if starting_file - ending_file < 0:
                 print("change in file cannot be less than:", bound, "Change in file is:", starting_file - ending_file )
                 if starting_file - ending_file < bound:
@@ -188,12 +190,14 @@ def findRookBoundaries(move, board):
     ending_row = int(ending_coordinate[1]) - 1
     if starting_rank - ending_rank != 0:
         #Left
+        print('0')
         if starting_rank - ending_rank > 0:
             for i in range(starting_rank - ending_rank):
                 if board[starting_rank - i][starting_row] != '  ':
                     bound = i
                     break
         #Right
+
         if starting_rank - ending_rank < 0:
             for i in range(abs(starting_rank - ending_rank)):
                 if board[starting_rank + i][starting_row] != '  ':
@@ -202,6 +206,7 @@ def findRookBoundaries(move, board):
         return bound
 
     elif starting_row - ending_row != 0:
+        print('1')
         #UP
         if starting_rank - ending_rank < 0:
             for i in range(abs(starting_rank - ending_rank)):
