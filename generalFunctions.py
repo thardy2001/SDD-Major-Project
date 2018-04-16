@@ -49,7 +49,7 @@ def performMove(move, board): # --> takes in a move and performs it. takes item 
     return last_taken_piece
 
 def undoMove(move, last_known_piece, board): # --> takes in a move and performs it. takes item of start coordinate and places it in end coordinate then clears start coordinate
-    if not ( len(move) != 5 or move[2] != 'x' or move[0]  not in 'abcdefgh' and move[3] not in 'abcdefgh' or move[1] not in '12345678' and move[4] not in '12345678') :
+    if not ( len(move) != 5 or move[2] != 'x' or move[0]  not in 'ABCDEFGHabcdefgh' and move[3] not in 'ABCDEFGHabcdefgh' or move[1] not in '12345678' and move[4] not in '12345678') :
         move = move.split("x")
         starting_coordinate = move[0]
         starting_rank = starting_coordinate[:1].upper()
