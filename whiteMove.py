@@ -5,9 +5,9 @@ import check
 # --> asks for an inputed move and performs it if it is legal
 def makeMove(board):
     move = input("Make Your Move:") # MUST be in the form 'starting coordinate x ending coordinate' --> example: B1xC1
-    if move =='q':
+    if move =='q' or move == "Q":
         quit()
-    if len(move) != 5 or move[2] != 'x' or move[0]  not in 'abcdefgh' and move[3] not in 'abcdefgh' or move[1] not in '12345678' and move[4] not in '12345678':
+    if len(move) != 5 or move[2] != 'x' or move[0]  not in 'ABCDEFGHabcdefgh' and move[3] not in 'ABCDEFGHabcdefgh' or move[1] not in '12345678' and move[4] not in '12345678':
         print("non-acceptable move attempt - Must be in the form 'starting coordinate x ending coordinate' --> example: B1xC1 ")
         makeMove(board)
 
