@@ -1,6 +1,6 @@
 Stuff That Needs Implementation:
 
---> Make a move illegal if a piece is blocking the path. (Rook nearly done)
+--> Make a move illegal if a piece is blocking the path. (Rook nearly done, queen causing issues )
 
 --> Promoting Pawns at the end
 
@@ -9,6 +9,7 @@ Stuff That Needs Implementation:
 --> AI for Black Pieces
 
 --> Be able to choose if you play as black or white.
+--> Fix knight movement
 
 
 Stuff That Works:
