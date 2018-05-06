@@ -36,45 +36,59 @@ def displayBoard(board): # --> Displays the current state of the board
     print("    A     B     C     D     E     F     G     H")
 
 def performMove(move, board): # --> takes in a move and performs it. takes item of start coordinate and places it in end coordinate then clears start coordinate
+    #Break the move up into the starting coordinate and the destination coordinate ["letter number" ]  ["letter number" ]
     move = move.split("x")
+    #store the starting coordinate and break it down into the row and column (letter and number)
     starting_coordinate = move[0]
-    starting_rank = starting_coordinate[:1].upper()
-    starting_file = starting_coordinate[1:]
+    starting_row = starting_coordinate[:1].upper()
+    starting_column = starting_coordinate[1:]
+    #store the ending coordinate and break it down into the row and column (letter and number)
     ending_coordinate = move[1]
-    ending_rank = ending_coordinate[:1].upper()
-    ending_file = ending_coordinate[1:]
-    last_taken_piece = board[int(ending_file)][changeRankToDigit(ending_rank)]
-    board[int(ending_file)][changeRankToDigit(ending_rank)] = board[int(starting_file)][changeRankToDigit(starting_rank)]
-    board[int(starting_file)][changeRankToDigit(starting_rank)] = "  "
+    ending_row = ending_coordinate[:1].upper()
+    ending_column = ending_coordinate[1:]
+    #store any piece that may have been taken
+    last_taken_piece = board[int(ending_column)][changeRowToDigit(ending_row)]
+    #Take contence of starting square and place in in the destination / ending square
+    board[int(ending_column)][changeRowToDigit(ending_row)] = board[int(starting_column)][changeRowToDigit(starting_row)]
+    #empty the starting square
+    board[int(starting_column)][changeRowToDigit(starting_row)] = "  "
     return last_taken_piece
 
 def undoMove(move, last_known_piece, board): # --> takes in a move and performs it. takes item of start coordinate and places it in end coordinate then clears start coordinate
+    #IF the move in in correct format and the coordinates provided exist THEN
     if not ( len(move) != 5 or move[2] != 'x' or move[0]  not in 'ABCDEFGHabcdefgh' and move[3] not in 'ABCDEFGHabcdefgh' or move[1] not in '12345678' and move[4] not in '12345678') :
+        #Seperate the move into starting and ending coordinates
         move = move.split("x")
+        #Seperate starting coordinates into row and column
         starting_coordinate = move[0]
-        starting_rank = starting_coordinate[:1].upper()
-        starting_file = starting_coordinate[1:]
+        starting_row = starting_coordinate[:1].upper()
+        starting_column = starting_coordinate[1:]
+        #Seperate ending coordinates into row and column
         ending_coordinate = move[1]
-        ending_rank = ending_coordinate[:1].upper()
-        ending_file = ending_coordinate[1:]
-
-        board[int(starting_file)][changeRankToDigit(starting_rank)] = board[int(ending_file)][changeRankToDigit(ending_rank)]
-        board[int(ending_file)][changeRankToDigit(ending_rank)] = last_known_piece
+        ending_row = ending_coordinate[:1].upper()
+        ending_column = ending_coordinate[1:]
+        #Take contence of starting square and place in in the destination / ending square
+        board[int(starting_column)][changeRowToDigit(starting_row)] = board[int(ending_column)][changeRowToDigit(ending_row)]
+        #Place whatever piece may have been taken back into its original position before it was taken
+        board[int(ending_column)][changeRowToDigit(ending_row)] = last_known_piece
 
 def pieceTeam(coordinate, board): # --> Returns "W" or "B" or "E" based on the content of the coordinate provided
-    coordinate_rank = changeRankToDigit(coordinate[:1])
-    coordinate_file = int(coordinate[1:])
-    square_content = board[coordinate_file][coordinate_rank]
+    coordinate_row = changeRowToDigit(coordinate[:1])
+    coordinate_column = int(coordinate[1:])
+    square_content = board[coordinate_column][coordinate_row]
+    #IF piece is on the white team THEN
     if square_content[:1] == "W":
         return "W"
+    #IF piece is n the black team THEN
     elif square_content[:1] == "B":
         return "B"
+    #IF the square doesn't have a team i.e. doesn't have a piece THEN
     else:
         return "E"
 
-def changeRankToDigit(rank):
-    """
-    Changes a specific rank into a digit, beginning at 0
+def changeRowToDigit(row):
+    """changeRow
+    Changes a specific row into a digit, beginning at 0
     e.g.
     A => 0,
     B => 1,
@@ -91,11 +105,11 @@ def changeRankToDigit(rank):
     'H': 7,
 
     }
-    digit = conversion[rank.upper()]
+    digit = conversion[row.upper()]
     return digit
 
 
-def changeDigitToRank(rank):
+def changeDigitToRow(row):
     conversion = {
     0 :'A',
     1 :'B',
@@ -107,5 +121,5 @@ def changeDigitToRank(rank):
     7 :'H',
 
     }
-    r = conversion[rank]
+    r = conversion[row]
     return r

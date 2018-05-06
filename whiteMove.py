@@ -32,13 +32,13 @@ def makeMove(board):
         print("illegal move, try again")
         makeMove(board)
 
-def convertPlayerMove(move): # --> converts the inputed player move to a move usable by calculations. (changes the file of all coordinates by - 1)
+def convertPlayerMove(move): # --> converts the inputed player move to a move usable by calculations. (changes the column of all coordinates by - 1)
     move = move.split("x")
     starting_coordinate = move[0]
-    starting_file = str(int(starting_coordinate[1:]) - 1)
-    starting_coordinate = starting_coordinate[:1] + starting_file
+    starting_column = str(int(starting_coordinate[1:]) - 1)
+    starting_coordinate = starting_coordinate[:1] + starting_column
     ending_coordinate = move[1]
-    ending_file = str(int(ending_coordinate[1:]) - 1)
-    ending_coordinate = ending_coordinate[:1] + ending_file
+    ending_column = str(int(ending_coordinate[1:]) - 1)
+    ending_coordinate = ending_coordinate[:1] + ending_column
     new_move = starting_coordinate + "x" + ending_coordinate
     return new_move

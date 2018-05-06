@@ -3,20 +3,20 @@ import generalFunctions
 
 
 def checkMove(move, board): # --> tests if the players move is legal
-        #get the starting coordinate, starting rank, starting file, ending coordinate, ending rank, ending file
+        #get the starting coordinate, starting row, starting file, ending coordinate, ending row, ending file
 
         move = move.split("x")
         starting_coordinate = move[0]
 
-        starting_rank = starting_coordinate[:1]
-        starting_file = starting_coordinate[1:]
+        starting_row = starting_coordinate[:1]
+        starting_column = starting_coordinate[1:]
 
         ending_coordinate = move[1]
-        ending_rank = ending_coordinate[:1]
-        ending_file = ending_coordinate[1:]
+        ending_row = ending_coordinate[:1]
+        ending_column = ending_coordinate[1:]
         move = move[0] + "x" + move[1]
         #Get peice that is being moved
-        piece = board[int(starting_file)][generalFunctions.changeRankToDigit(starting_rank)]
+        piece = board[int(starting_column)][generalFunctions.changeRowToDigit(starting_row)]
         piece_team = piece[:1]
         piece_type = piece[1:]
         if piece_team == "B":
@@ -28,19 +28,19 @@ def checkMove(move, board): # --> tests if the players move is legal
 
 def checkMoveWhite(move, board):
 
-    #get the starting coordinate, starting rank, starting file, ending coordinate, ending rank, ending file
+    #get the starting coordinate, starting row, starting file, ending coordinate, ending row, ending file
     move = move.split("x")
     starting_coordinate = move[0]
 
-    starting_rank = starting_coordinate[:1]
-    starting_file = starting_coordinate[1:]
+    starting_row = starting_coordinate[:1]
+    starting_column = starting_coordinate[1:]
 
     ending_coordinate = move[1]
-    ending_rank = ending_coordinate[:1]
-    ending_file = ending_coordinate[1:]
+    ending_row = ending_coordinate[:1]
+    ending_column = ending_coordinate[1:]
 
     #Get peice that is being moved
-    piece = board[int(starting_file)][generalFunctions.changeRankToDigit(starting_rank)]
+    piece = board[int(starting_column)][generalFunctions.changeRowToDigit(starting_row)]
     piece_type = piece[1:]
 
     #IF piece is a pawn THEN
@@ -75,19 +75,19 @@ def checkMoveWhite(move, board):
 
 def checkMoveBlack(move, board):
 
-    #get the starting coordinate, starting rank, starting file, ending coordinate, ending rank, ending file
+    #get the starting coordinate, starting row, starting file, ending coordinate, ending row, ending file
     move = move.split("x")
     starting_coordinate = move[0]
 
-    starting_rank = starting_coordinate[:1]
-    starting_file = starting_coordinate[1:]
+    starting_row = starting_coordinate[:1]
+    starting_column = starting_coordinate[1:]
 
     ending_coordinate = move[1]
-    ending_rank = ending_coordinate[:1]
-    ending_file = ending_coordinate[1:]
+    ending_row = ending_coordinate[:1]
+    ending_column = ending_coordinate[1:]
 
     #Get peice that is being moved
-    piece = board[int(starting_file)][generalFunctions.changeRankToDigit(starting_rank)]
+    piece = board[int(starting_column)][generalFunctions.changeRowToDigit(starting_row)]
     piece_type = piece[1:]
 
     #IF piece is a pawn THEN

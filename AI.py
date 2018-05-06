@@ -2,6 +2,7 @@ import generalFunctions
 import random
 import moveLegal
 
+#Black makes a move
 def makeMove(board):
     #check the board for all black piece coordinates
     startingPositions = generateStartingCoordinates(board)
@@ -19,11 +20,11 @@ def generateStartingCoordinates(board): # --> Returns a list of all coordinates 
     coordinate_list = []
     displayed_coordinates = []
     #FOR every file on the board
-    for rank in range(8):
-        #FOR every rank on the board
+    for row in range(8):
+        #FOR every row on the board
         for row in range(8):
             # IF the square has a black piece THEN
-            coordinate = generalFunctions.changeDigitToRank(rank) + str(row)
+            coordinate = generalFunctions.changeDigitToRow(row) + str(row)
             if generalFunctions.pieceTeam(coordinate, board) == "B":
                 displayed_coordinates.append(str(coordinate[0]) + str(int(coordinate[1]) + 1))
                 #add the coordinate to a list
@@ -43,10 +44,10 @@ def generateMoveList(board, startingCoordinates): # --> Returns a list of all le
     for coordinates in range(len(startingCoordinates)):
         #print("Testing For legal moves for piece in coordinate:", startingCoordinates[coordinates][0] + str(int(startingCoordinates[coordinates][1]) + 1))
         #For every square on the board
-        for rank in range(8):
+        for row in range(8):
             for row in range(8):
                 #ending coordinate == current coordinate being tested
-                end_coordinate = generalFunctions.changeDigitToRank(rank) + str(row)
+                end_coordinate = generalFunctions.changeDigitToRow(row) + str(row)
 
                 #generate a move by combining the starting cordinate and endiong coordinate
                 tested_move = startingCoordinates[coordinates] + "x" + end_coordinate
