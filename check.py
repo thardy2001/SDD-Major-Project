@@ -42,8 +42,8 @@ def getKingCoordinates(board): # --> finds and returns the coordinates of the bl
             if board[row][column] == "WK":
                 #Store the coordinates
                 coordinateWK = generalFunctions.changeDigitToRow(row) + str(row)
-        #IF the square contains a black king THEN
-        elif board[row][column] == "BK":
+            #IF the square contains a black king THEN
+            elif board[row][column] == "BK":
                 #Store the coordinates
                 coordinateBK = generalFunctions.changeDigitToRow(row) + str(row)
     #Return the location of the kings
