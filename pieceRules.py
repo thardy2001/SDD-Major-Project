@@ -191,6 +191,7 @@ def kingMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
 
 
 def findRookBoundaries(move, board, direction):
+    print("Move being tested in rook/queen findRookBoundaries:", move)
     #Break the move down into coordinates
     move = move.split('x')
 
@@ -198,24 +199,27 @@ def findRookBoundaries(move, board, direction):
     starting_coordinate = move[0]
     ending_coordinate = move[1]
     starting_row = changeRowToDigit(starting_coordinate[0])
-    starting_row = int(starting_coordinate[1]) - 1
+    starting_column = int(starting_coordinate[1]) - 1
     ending_row = changeRowToDigit(ending_coordinate[0])
-    ending_row = int(ending_coordinate[1]) -1
+    ending_column = int(ending_coordinate[1]) -1
 
-    #IF the rook is moveing horizontal THEN
+    #IF the rook is moving horizontal THEN
     if direction == "Horizontal":
-
+        print("The rook/queen is moving horizontally")
         direction = False
         #IF the change in row is positive THEN
         if starting_row - ending_row > 0:
-
+            print("The rook/queen is moving left")
+            print(" ")
             # the rook is moving LEFT
             for steps_away in range(starting_row - ending_row):
                 #Prevent counting starting coordinate for testing
                 if steps_away != 0:
+                    print("testing square:", changeDigitToRow(starting_row - steps_away) + str(starting_column))
                     #If the square in the direction of movement steps_away steps away is not empty i.e. contains a piece THEN
-                    if board[starting_row - steps_away][starting_row] != '  ':
-                        piece_coordinate = str(starting_row - steps_away) + str(starting_row)
+                    if board[starting_row - steps_away][starting_column] != '  ':
+                        
+                        piece_coordinate = str(starting_row - steps_away) + str(starting_column)
         #IF the change in row is negitive THEN
         if starting_row - ending_row < 0:
 
