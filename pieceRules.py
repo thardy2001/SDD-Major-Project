@@ -80,7 +80,7 @@ def rookMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
             #Rook is moving left
             if changeRowToDigit(starting_row) - changeRowToDigit(ending_row) < 0:
                 #IF the change in row is greater than the boundrary THEN
-                if abs(changeRowToDigit(starting_row) - changeRowToDigit(ending_row)) > findRookBoundaries(move, board, "Horizontal"):
+                if abs(changeRowToDigit(starting_row) - changeRowToDigit(ending_row)) > findRookMaximum(board, move,"left"):
                     #Move is illigal
                     return False
                 else:
@@ -89,7 +89,7 @@ def rookMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
             #Rook is moving right
             elif changeRowToDigit(starting_row) - changeRowToDigit(ending_row) > 0:
                 #IF the change in row is greater than the boundrary THEN
-                if changeRowToDigit(starting_row) - changeRowToDigit(ending_row) > findRookBoundaries(move, board, "Horizontal"):
+                if changeRowToDigit(starting_row) - changeRowToDigit(ending_row) > findRookMaximum(board, move,"right"):
                     #Move is illigal
                     return False
                 else:
@@ -104,14 +104,14 @@ def rookMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
             #IF rook is moving up THEN
             if starting_column - ending_column < 0:
                 #IF the change in column
-                if abs(starting_column - ending_column) > findRookBoundaries(move, board, "Vertical"):
+                if abs(starting_column - ending_column) > findRookMaximum(board,move, "up"):
                     return False
                 else:
                     return True
             #IF the rook is moving down THEN
             elif starting_column - ending_column > 0:
 
-                if starting_column - ending_column > findRookBoundaries(move, board, "Vertical"):
+                if starting_column - ending_column > findRookMaximum(board, move, "down"):
                     return False
                 else:
                     return True
@@ -190,83 +190,21 @@ def kingMovement(starting_coordinate, ending_coordinate, turn, board): # --> ret
     return False
 
 
-def findRookBoundaries(move, board, direction):
-    print("Move being tested in rook/queen findRookBoundaries:", move)
-    #Break the move down into coordinates
+def findRookMaximum(board, move direction):
     move = move.split('x')
-
-    #Break down coordinates into x and y
     starting_coordinate = move[0]
     ending_coordinate = move[1]
-    starting_row = changeRowToDigit(starting_coordinate[0])
-    starting_column = int(starting_coordinate[1]) - 1
-    ending_row = changeRowToDigit(ending_coordinate[0])
-    ending_column = int(ending_coordinate[1]) -1
-
-    #IF the rook is moving horizontal THEN
-    if direction == "Horizontal":
-        print("The rook/queen is moving horizontally")
-        direction = False
-        #IF the change in row is positive THEN
-        if starting_row - ending_row > 0:
-            print("The rook/queen is moving left")
-            print(" ")
-            # the rook is moving LEFT
-            for steps_away in range(starting_row - ending_row):
-                #Prevent counting starting coordinate for testing
-                if steps_away != 0:
-                    print("testing square:", changeDigitToRow(starting_row - steps_away) + str(starting_column))
-                    #If the square in the direction of movement steps_away steps away is not empty i.e. contains a piece THEN
-                    if board[starting_row - steps_away][starting_column] != '  ':
-                        
-                        piece_coordinate = str(starting_row - steps_away) + str(starting_column)
-        #IF the change in row is negitive THEN
-        if starting_row - ending_row < 0:
-
-            #The rook is moveing RIGHT
-            for steps_away in range(abs(starting_row - ending_row)):
-                if steps_away != 0:
-                    #If the square in the direction of movement steps_away steps away is not empty i.e. contains a piece THEN
-                    if board[starting_row + steps_away][starting_row] != '  ':
-                        piece_coordinate = str(starting_row + steps_away) + str(starting_row)
 
 
-    #IF the rook is moving vertically THEN
-    if direction == "Vertical":
+    if direction == "up":
+        for square in range(abs(int(starting_coordinate[1]) - int(ending_coordinate[1])))
+            if square != 0:
+                if board[changeRowToDigit(starting_coordinate[0])][int(starting_coordinate[1] + square)] != "  ":
+                    maximum_distance = abs(int(starting_coordinate[1]) - )
 
-        direction = True
-        #IF the rook is moving Down THEN
-        if starting_row - ending_row > 0:
 
-            for steps_away in range(starting_row - ending_row):
-                if steps_away != 0:
+    if direction == "down":
 
-                    #If the square in the direction of movement steps_away steps away is not empty i.e. contains a piece THEN
-                    if board[starting_row][starting_row - steps_away] != '  ':
-                        piece_coordinate = str(starting_row) + str(starting_row - steps_away)
-        #IF the rook is moving up THEN
-        if starting_row - ending_row < 0:
+    if direction == "left":
 
-            #The rook is moveing up
-            for steps_away in range(abs(starting_row - ending_row)):
-                if steps_away != 0:
-                    #If the square in the direction of movement steps_away steps away is not empty i.e. contains a piece THEN
-                    if board[starting_row][starting_row + steps_away] != '  ':
-                        piece_coordinate = str(starting_row) + str(starting_row + steps_away)
-    return (getCoordinateDifferenceRook(starting_coordinate, piece_coordinate, direction) - 1)
-
-def getCoordinateDifferenceRook(starting_coordinate, max_coordinate, direction):
-    #Break down the coordinates of the found piece and the piece being moved
-    starting_row = int(changeRowToDigit(starting_coordinate[0]))
-    piece_row = int(max_coordinate[0])
-    starting_row = int(starting_coordinate[1])
-    piece_row = int(max_coordinate[1])
-
-    diffrow = abs(starting_row- piece_row)
-    diffrow = abs(starting_row - piece_row)
-    #If the rook is moveing up / down THEN
-    if direction:
-        return diffrow
-    #IF the rook is moveing left / right THEN
-    else:
-        return diffrow
+    if direction == "right":

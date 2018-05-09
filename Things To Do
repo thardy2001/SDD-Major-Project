@@ -6,10 +6,10 @@ Stuff That Needs Implementation:
 
 --> Rules For Movement
 
---> AI for Black Pieces
+
 
 --> Be able to choose if you play as black or white.
---> Fix knight movement
+
 
 
 Stuff That Works:
@@ -26,3 +26,5 @@ Stuff That Works:
 
 --> Rules For Movement
 --> Check
+--> AI for black pieces
+--> Fix knight movement 
