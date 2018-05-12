@@ -105,7 +105,7 @@ def changeRowToDigit(row):
     'H': 7,
 
     }
-    digit = conversion[row.upper()]
+
     return digit
 
 

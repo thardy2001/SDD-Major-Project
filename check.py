@@ -1,5 +1,5 @@
 import generalFunctions
-import moveLegal
+
 
 def isCheck(board): # --> Tests if any king is in check, if so then returns the colour of the knig currently in check
     #Get the location of each of the kings on the board
