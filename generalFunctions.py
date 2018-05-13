@@ -86,6 +86,15 @@ def pieceTeam(coordinate, board): # --> Returns "W" or "B" or "E" based on the c
     else:
         return "E"
 
+def onBoard(move):
+    values = ['0','1', '2', '3', '4', '5', '6', '7']
+    row = move[0]
+    column = move[1]
+    if row in values and column in values:
+        return True
+    else:
+        return False
+
 def changeRowToDigit(row):
     """changeRow
     Changes a specific row into a digit, beginning at 0
@@ -105,7 +114,7 @@ def changeRowToDigit(row):
     'H': 7,
 
     }
-
+    digit = conversion[row.upper()]
     return digit
 
 

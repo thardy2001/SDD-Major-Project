@@ -1,209 +1,31 @@
 import generalFunctions
 import random
-
-
+import moveLegal
+import check
 piece_locations =["a7", 'a6', 'b7', 'b6',"c7", 'c6', 'd7', 'd6',"e7", 'e6', 'f7', 'f6', "g7", 'g6', 'h7', 'h6',]
 #Black makes a move
 def makeMove(board):
     #check the board for all black piece coordinates
     startingPositions = piece_locations
-
+    moveMade = False
     #generate a list of all legal moves black can make
-    moves_list = generateMoveList(board, startingPositions)
+    moves_list = moveLegal.generateMoveList(board, startingPositions, "B")
+    print("All black legal moves: ", moves_list)
     #Organise the list based on quality of the moves
-    num = random.randint(0, len(moves_list) -1)
-    #Perform a move
-    last_taken_piece = generalFunctions.performMove(moves_list[num], board)
+    while not moveMade:
+        num = random.randint(0, len(moves_list) -1)
+        #Perform a move
+        last_taken_piece = generalFunctions.performMove(moves_list[num], board)
+        if check.isCheck(board) == "B":
+            #Undo the move
+
+            undoMove(move,last_taken_piece,  board)
+            del moves_list[num]
+        else:
+            moveMade = True
 
     #Update the locations of black pieces
-    del startingPositions[num]
-    move = moves_list[num].split('x')
+    move = moves_list[num]
+    move = move.split('x')
+    del startingPositions[startingPositions.index(move[0])]
     startingPositions.append(move[1])
-
-def generateMoveList(board, startingCoordinates):
-    moves_list = []
-    for item in range(len(startingCoordinates)):
-        piececoordinate = startingCoordinates[item]
-        piece = board[changeRowToDigit(piececoordinate[0])][int(piececoordinate[1])]
-        piece_type = piece[1]
-
-        #IF the piece is a PAWN THEN
-        if piece_type == "P":
-            #IF the pawn is moving one down AND the square is empty THEN
-            if board[changeRowToDigit(piececoordinate[0])][int(piececoordinate[1] - 1)] == "  ":
-                move_list = move_list.append(piececoordinate + 'x' + piececoordinate[0] + str(int(piececoordinate[1] - 1)))
-            #IF the pawn is moving down 2 AND both the square infront of the piece and ending destination are empty AND the pawn has yet to move THEN
-            if board[changeRowToDigit(piececoordinate[0])][int(piececoordinate[1] - 2)] == "  " and board[changeRowToDigit(piececoordinate[0])][int(piececoordinate[1] - 1)] == "  " and int(piececoordinate[1] - 1) == 6:
-                move_list = move_list.append(piececoordinate + 'x' + piececoordinate[0] + str(int(piececoordinate[1] - 2)))
-            #IF the pawn is moving down one and across one AND the destination square has a white piece THEN
-            if generalFucnctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) +str(int(piececoordinate[1] - 1))) == "W":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] - 1)))
-            #IF the pawn is moving down one and across one AND the destination square has a white piece THEN
-            if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1)+ str(int(piececoordinate[1] - 1))) == "W":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] - 1)))
-        #KING
-        if piece_type == "K":
-            moves_list = generateMovesKing(board, moves_list, piececoordinate)
-        #KNIGHT
-        if piece_type == "N":
-            moves_list = generateMovesKnight(board, moves_list, piececoordinate)
-        #ROOK
-        if piece_type == "R":
-            moves_list = generateMovesRook(board, moves_list, piececoordinate)
-        #BISHOP
-        if piece_type == "B":
-            moves_list = generateMovesBishop(board, moves_list, piececoordinate)
-        #QUEEN
-        if piece_type == "Q":
-            moves_list = generateMovesBishop(board, moves_list, piececoordinate)
-            moves_list = generateMovesRook(board, moves_list, piececoordinate)
-
-
-def generateMovesKing(board, moves_list, piececoordinate):
-    #DOWN
-    if generalFunctions.pieceTeam(piececoordinate[0] + str(int(piececoordinate[1] - 1))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + piececoordinate[0] + str(int(piececoordinate[1] - 1)))
-    #UP
-    if generalFunctions.pieceTeam(piececoordinate[0] + str(int(piececoordinate[1] + 1))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + piececoordinate[0] + str(int(piececoordinate[1] + 1)))
-    #LEFT
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + piececoordinate[1]) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + piececoordinate[1])
-    #RIGHT
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + piececoordinate[1]) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + piececoordinate[1])
-    #TOP RIGHT CORNER
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] + 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] + 1)))
-    #TOP LEFT CORNER
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] + 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] + 1)))
-    # BOTTOM LEFT CORNER
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] - 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] - 1)))
-    #BOTTOM RIGHT CORNER
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] - 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] - 1)))
-
-    return moves_list
-
-def generateMovesKnight(board, moves_list, piececoordinate):
-    #lEFT 2 DOWN 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 2)) + str(int(piececoordinate[1] - 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 2)) + str(int(piececoordinate[1] - 1)))
-    #RIGHT 2 DOWN 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 2)) + str(int(piececoordinate[1] - 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 2)) + str(int(piececoordinate[1] - 1)))
-    #LEFT 2 UP 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 2)) + str(int(piececoordinate[1] + 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 2)) + str(int(piececoordinate[1] + 1)))
-    #RIGHT 2 UP 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 2)) + str(int(piececoordinate[1] + 1 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 2)) + str(int(piececoordinate[1] + 1)))
-    #DOWN 2 LEFT 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] - 2 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] - 2)))
-    #UP 2 LEFT 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] + 2 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] - 1)) + str(int(piececoordinate[1] + 2)))
-    #DOWN 2 RIGHT 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] - 2 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] - 2)))
-    #UP 2 RIGHT 1
-    if generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] + 2 ))) != "B":
-        move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0] + 1)) + str(int(piececoordinate[1] + 2)))
-
-    return moves_list
-
-def generateMovesBishop(board, moves_list, piececoordinate):
-
-    count = 0
-    #UP LEFT
-    while changeRowToDigit(piececoordinate[0]) - count > -1 and  int(piececoordinate[1]) + count < 8:
-        count+=1
-        if board[changeRowToDigit(piececoordinate[0] ) - count][int(piececoordinate[1]) + count] == "  ":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - count) + str(int(piececoordinate[1] ) + count))
-        elif generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) - count) + str(int(piececoordinate[1]) + count))== "W":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - count) + str(int(piececoordinate[1] ) + count))
-            count = 0
-            break
-        count = 0
-        break
-    #UP RIGHT
-    while changeRowToDigit(piececoordinate[0]) + count < 8 and  int(piececoordinate[1]) + count < 8:
-        count+=1
-        if board[changeRowToDigit(piececoordinate[0] ) + count][int(piececoordinate[1]) + count] == "  ":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + count) + str(int(piececoordinate[1] ) + count))
-        elif generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) + count) + str(int(piececoordinate[1]) + count)) == "W":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + count) + str(int(piececoordinate[1] ) + count))
-            count = 0
-            break
-        count = 0
-        break
-    #DOWN LEFT
-    while changeRowToDigit(piececoordinate[0]) - count > -1 and  int(piececoordinate[1]) - count > -1:
-        count+=1
-        if board[changeRowToDigit(piececoordinate[0] ) - count][int(piececoordinate[1]) - count] == "  ":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - count) + str(int(piececoordinate[1] ) - count))
-        elif generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) - count) + str(int(piececoordinate[1]) - count)) == "W":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - count) + str(int(piececoordinate[1] ) - count))
-            count = 0
-            break
-        count = 0
-        break
-    #DOWN RIGHT
-    while changeRowToDigit(piececoordinate[0]) + count < 8 and  int(piececoordinate[1]) - count > -1:
-        count+=1
-        if board[changeRowToDigit(piececoordinate[0] ) + count][int(piececoordinate[1]) - count] == "  ":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + count) + str(int(piececoordinate[1] ) - count))
-        elif generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) + count) + str(int(piececoordinate[1]) - count))== "W":
-            move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + count) + str(int(piececoordinate[1] ) - count))
-            count = 0
-            break
-        count = 0
-        break
-
-    return moves_list
-def generateMovesRook(board, moves_list, piececoordinate):
-    #UP
-    for squares in range( 8 - int(piececoordinate[1]) ):
-        if squares != 0:
-            if board[changeRowToDigit(piececoordinate[0])][int(piececoordinate[1] + squares)] == "  ":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1] + squares)))
-            elif generalFunctions.pieceTeam(piececoordinate[0] + str(int(piececoordinate[1] + squares)))== "W":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1] + squares)))
-                break
-            else:
-                break
-    #RIGHT
-    for squares in range (8 - changeRowToDigit(piececoordinate[0])):
-        if squares != 0:
-            if board[changeRowToDigit(piececoordinate[0]) + squares][int(piececoordinate[1])] == "  ":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + squares) + str(int(piececoordinate[1] )))
-            elif generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + squares) + piececoordinate[1]) == "W":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + squares) + str(int(piececoordinate[1] )))
-                break
-            else:
-                break
-    #DOWN
-    for squares in range(int(piececoordinate[1])):
-        if squares != 0:
-            if board[changeRowToDigit(piececoordinate[0])][int(piececoordinate[1] - squares)] == "  ":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1] - squares)))
-            elif generalFunctions.pieceTeam(piececoordinate[0] + str(int(piececoordinate[1] - squares))) == "W":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1] - squares)))
-                break
-            else:
-                break
-    #LEFT
-    for squares in range(changeRowToDigit(piececoordinate[0])):
-        if squares != 0:
-            if board[changeRowToDigit(piececoordinate[0]) - squares][int(piececoordinate[1])] == "  ":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - squares) + str(int(piececoordinate[1] )))
-            elif generalFunctions.pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - squares) + piececoordinate[1])== "W":
-                move_list = move_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - squares) + str(int(piececoordinate[1] )))
-                break
-            else:
-                break
-
-    return move_list
