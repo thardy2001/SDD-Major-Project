@@ -2,7 +2,7 @@ from generalFunctions import *
 import check
 import moveLegal
 
-piece_locations =["a0", 'a1', 'b0', 'b1',"c0", 'c1', 'd0', 'd1',"e0", 'e1', 'f0', 'f1', "g0", 'g1', 'h0', 'h1',]
+piece_locations =["A0", 'A1', 'B0', 'B1',"C0", 'C1', 'D0', 'D1',"E0", 'E1', 'F0', 'F1', "G0", 'G1', 'H0', 'H1',]
 # --> asks for an inputed move and performs it if it is legal
 def makeMove(board):
     print("ENTER Q to QUIT")
@@ -19,7 +19,7 @@ def makeMove(board):
     moves_list = moveLegal.generateMoveList(board, piece_locations, "W")
     # If the move entered is legal
 
-    print("All moves white can make: (should total to 20 moves) ", moves_list)
+    
     while not moveMade:
 
         if move in moves_list:
@@ -46,7 +46,8 @@ def makeMove(board):
     piece_locations.append(move[1])
 
 def convertPlayerMove(move): # --> converts the inputed player move to a move usable by calculations. (changes the column of all coordinates by - 1)
-    move = move.split("x")
+    move = move.upper()
+    move = move.split("X")
     starting_coordinate = move[0]
     starting_column = str(int(starting_coordinate[1:]) - 1)
     starting_coordinate = starting_coordinate[:1] + starting_column

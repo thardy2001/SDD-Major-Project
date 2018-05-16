@@ -86,16 +86,21 @@ def pieceTeam(coordinate, board): # --> Returns "W" or "B" or "E" based on the c
     else:
         return "E"
 
-def onBoard(move):
+def onBoard(move): # --> Finds out if a coordinate is on the board
     values = ['0','1', '2', '3', '4', '5', '6', '7']
+    #Seperate the given coordinate into row and column
     row = move[0]
     column = move[1]
+    #IF the coordinates are on the board THEN
     if row in values and column in values:
+        #return True
         return True
+    #ELSE
     else:
+        #return False
         return False
 
-def changeRowToDigit(row):
+def changeRowToDigit(row): # --> converts the alphabetic representation of the row coordinate into its integer counterpart
     """changeRow
     Changes a specific row into a digit, beginning at 0
     e.g.
@@ -118,7 +123,7 @@ def changeRowToDigit(row):
     return digit
 
 
-def changeDigitToRow(row):
+def changeDigitToRow(row):# --> converts the integer representation of the row coordinate into its alphabetic counterpart
     conversion = {
     0 :'A',
     1 :'B',
@@ -132,3 +137,60 @@ def changeDigitToRow(row):
     }
     r = conversion[row]
     return r
+
+
+
+def promotePawns(board, turn): # --> Prompts user to enter what piece they want to change a pawn to and changes the coordinate of the boards value to the corresponding piece
+    selected = False
+    #FOR every square on the 8th and 1st rows
+    for row in range(8):
+        if selected == True:
+            break
+        #IF it is whites turn THEN
+        if turn == "W":
+            #Get the piece
+            piece = board[7][row]
+            #IF the piece is a pawn THEN
+            if piece[1] == "P":
+                #WHILE the player hasn't mad a valid choice
+                while not selected:
+                    #Take in an input
+                    newPiece = input("Choose a new piece to promote (Queen: Q) (Bishop: B) (Knight: N) (Rook: R)")
+                    #change their input to a capital
+                    newPiece.upper()
+                    #IF they enter "Q" THEN
+                    if newPiece == "Q":
+                        #change the pawn to a Queen
+                        board[7][row] = "WQ"
+                        selected = True
+                    #IF they enter "B" THEN
+                    if newPiece == "B":
+                        #change the pawn to a Bishop
+                        board[7][row] = "WB"
+                        selected = True
+                    #IF they enter "N" THEN
+                    if newPiece == "N":
+                        #change the pawn to a Knight
+                        board[7][row] = "WN"
+                        selected = True
+                    #IF they enter "R" THEN
+                    if newPiece == "R":
+                        #change the pawn to a Rook
+                        board[7][row] = "WR"
+                        selected = True
+                    #IF the input is not valid THEN
+                    else:
+                        print("Not one of the possible pieces, try again. ")
+        #IF it is blacks turn THEN
+        if turn =="B":
+            #Get the piece
+            piece = board[0][row]
+            #IF the piece is a pawn
+            if piece[1] == "P":
+                #Possible choices
+                optionPieces["Q", "B", "N", "R"]
+                #create a new piece with a random choice from the list
+                piece = "B" + optionPieces[random.randint(0,4)]
+                #Change the pawn into the 'chosen' promote
+                board[0][row] = piece
+                break
