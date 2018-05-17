@@ -559,50 +559,82 @@ def generateMovesRookWhite(board, moves_list, piececoordinate):# --> Adds all of
 
 
 def generateMovesKingBlack(board, moves_list, piececoordinate):# --> Adds all of the KINGS legal moves to the overall move list
-    #DOWN
+
+    '''DOWN'''
+	#IF coordinate DOWN 1 is on the board THEN 
     if onBoard(piececoordinate[0] + str(int(piececoordinate[1]) - 1)):
+	
+		#IF the square DOWN 1 doesn't have a black peice THEN 
         if pieceTeam(piececoordinate[0] + str(int(piececoordinate[1] - 1)), board) != "B":
 
             #Add the move to the list
              moves_list.append(piececoordinate + 'x' + piececoordinate[0] + str(int(piececoordinate[1]) - 1))
-    #UP
+			 
+    '''UP'''
+	#IF the coordinate UP 1 is on the board THEN 
     if onBoard(piececoordinate[0] + str(int(piececoordinate[1]) + 1)):
+	
+		#IF the square UP 1 doesn't have a black piece THEN 
         if pieceTeam(piececoordinate[0] + str(int(piececoordinate[1]) + 1), board) != "B":
 
             #Add the move to the list
              moves_list.append(piececoordinate + 'x' + piececoordinate[0] + str(int(piececoordinate[1]) + 1))
-    #LEFT
+			 
+    '''LEFT'''
+	#IF the coordinate LEFT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) - 1) + piececoordinate[1]):
+	
+		#IF the square LEFT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + piececoordinate[1], board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + piececoordinate[1])
-    #RIGHT
+			
+    '''RIGHT'''
+	#IF the coordinate RIGHT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 1) + piececoordinate[1]):
+	
+		#IF the square RIGHT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + piececoordinate[1], board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + piececoordinate[1])
-    #TOP RIGHT CORNER
+			
+    '''TOP RIGHT CORNER'''
+	#IF the coordinate UP 1 and RIGHT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) + 1 )):
+	
+		#IF the square UP 1 and RIGHT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) + 1 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) + 1))
-    #TOP LEFT CORNER
+			
+    '''TOP LEFT CORNER'''
+	#IF the coordinate UP 1 and LEFT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) + 1 )):
+	
+		#IF the square UP 1 and LEFT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) + 1 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) + 1))
-    # BOTTOM LEFT CORNER
-    if onBoard(str(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 1 )):
+			
+    '''BOTTOM LEFT CORNER'''
+	#IF the coordinate DOWN 1 and LEFT 1 is on the board THEN 
+    if onBoard(str(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 1 
+	
+		#IF the square DOWN 1 and LEFT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 1 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 1))
-    #BOTTOM RIGHT CORNER
+		
+    '''BOTTOM RIGHT CORNER'''
+	#IF the coordinate DOWN 1 and RIGHT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) - 1 )):
+	
+		#IF the square DOWN 1 and RIGHT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) - 1 ), board) != "B":
 
             #Add the move to the list
@@ -612,50 +644,81 @@ def generateMovesKingBlack(board, moves_list, piececoordinate):# --> Adds all of
 
 def generateMovesKnightBlack(board, moves_list, piececoordinate):# --> Adds all of the KNIGHTS legal moves to the overall move list
 
-    #lEFT 2 DOWN 1
+    '''lEFT 2 DOWN 1'''
+	#IF the coordinate LEFT 2 and DOWN 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) - 1 )):
+	
+		#IF the square LEFT 2 and DOWN 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) - 1 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) - 1))
-    #RIGHT 2 DOWN 1
+			
+    '''RIGHT 2 DOWN 1'''
+	#IF the coordinate RIGHT 2 and DOWN 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 2) + str(int(piececoordinate[1]) - 1 )):
+	
+		#IF the square RIGHT 2 and DOWN 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 2) + str(int(piececoordinate[1]) - 1 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 2) + str(int(piececoordinate[1]) - 1))
-    #LEFT 2 UP 1
+		
+    '''LEFT 2 UP 1'''
+	#IF the coordinate LEFT 2 and UP 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) + 1 )):
+	
+		#IF the square LEFT 2 and UP 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) + 1 ), board) != "B":
 
             #Add the move to the list
-            moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) + 1))
-    #RIGHT 2 UP 1
+            moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 2) + str(int(piececoordinate[1]) + 1
+			
+    '''RIGHT 2 UP 1'''
+	#IF the coordinate RIGHT 2 and UP 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 2) + str(int(piececoordinate[1]) + 1 )):
+	
+		#IF the square RIGHT 2 and UP 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 2) + str(int(piececoordinate[1]) + 1 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 2) + str(int(piececoordinate[1]) + 1))
-    #DOWN 2 LEFT 1
+			
+    '''DOWN 2 LEFT 1'''
+	#IF the coordinate DOWN 2 and LEFT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 2 )):
+	
+		#IF the square DOWN 2 and LEFT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 2 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) - 2))
-    #UP 2 LEFT 1
+			
+    '''UP 2 LEFT 1'''
+	#IF the coordinate UP 2 and LEFT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) + 2 )):
+	
+		#IF the square UP 2 and LEFT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) + 2 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - 1) + str(int(piececoordinate[1]) + 2))
-    #DOWN 2 RIGHT 1
+			
+    '''DOWN 2 RIGHT 1'''
+	#IF the coordinate DOWN 2 and RIGHT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) - 2 )):
+	
+		#IF the square DOWN 2 and RIGHT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) - 2 ), board) != "B":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) - 2))
-    #UP 2 RIGHT 1
+			
+    '''UP 2 RIGHT 1'''
+	#IF the coordinate UP 2 and RIGHT 1 is on the board THEN 
     if onBoard(str(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) + 2 )):
+	
+		#IF the square UP 2 and RIGHT 1 doesn't have a black piece THEN 
         if pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + 1) + str(int(piececoordinate[1]) + 2 ), board) != "B":
 
             #Add the move to the list
@@ -664,10 +727,15 @@ def generateMovesKnightBlack(board, moves_list, piececoordinate):# --> Adds all 
 
 
 def generateMovesBishopBlack(board, moves_list, piececoordinate):# --> Adds all of the BISHOPS legal moves to the overall move list
-
+	
+	#Set count to 0 
     count = 0
-    #UP LEFT
+	
+    '''UP LEFT'''
+	#WHILE the row - count is > -1 AND the column + count < 8
     while changeRowToDigit(piececoordinate[0]) - count > -1 and  int(piececoordinate[1]) + count < 8:
+		
+		#IF the square UP cound and LEFT count is empty THEN 
         if board[int(piececoordinate[1]) + count][changeRowToDigit(piececoordinate[0] ) - count] == "  ":
 
             #Add the move to the list
@@ -675,16 +743,30 @@ def generateMovesBishopBlack(board, moves_list, piececoordinate):# --> Adds all 
 
             #Increment count by 1
             count+=1
+		
+		#ELSE IF the square UP count and LEFT count has a white piece THEN 
         elif pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) - count) + str(int(piececoordinate[1]) + count), board)== "W":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - count) + str(int(piececoordinate[1] ) + count))
+			
+			#Reset count to 0
             count = 0
+			
+			#END WHILE 
             break
+			
+		#Reset count to 0
         count = 0
+		
+		#END WHILE 
         break
-    #UP RIGHT
+		
+   ''' UP RIGHT ''' 
+   #WHILE the row + count < 8 AND the column + count < 8
     while changeRowToDigit(piececoordinate[0]) + count < 8 and  int(piececoordinate[1]) + count < 8:
+	
+		#IF the square UP count and RIGHT count is empty THEN 
         if board[int(piececoordinate[1]) + count][changeRowToDigit(piececoordinate[0] ) + count] == "  ":
 
             #Add the move to the list
@@ -692,16 +774,30 @@ def generateMovesBishopBlack(board, moves_list, piececoordinate):# --> Adds all 
 
             #Increment count by 1
             count+=1
+		
+		#IF the square UP count and RIGHT count has a white piece THEN 
         elif pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) + count) + str(int(piececoordinate[1]) + count), board) == "W":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + count) + str(int(piececoordinate[1] ) + count))
+			
+			#Reset count to 0
             count = 0
+			
+			#END WHILE 
             break
+		
+		#Reset count to 0
         count = 0
+		
+		#END WHILE 
         break
-    #DOWN LEFT
+		
+    '''DOWN LEFT'''
+	#WHILE row - count > -1 AND column - count > -1
     while changeRowToDigit(piececoordinate[0]) - count > -1 and  int(piececoordinate[1]) - count > -1:
+		
+		#IF the square DOWN count and LEFT count is empty THEN 
         if board[int(piececoordinate[1]) - count][changeRowToDigit(piececoordinate[0] ) - count] == "  ":
 
             #Add the move to the list
@@ -709,16 +805,30 @@ def generateMovesBishopBlack(board, moves_list, piececoordinate):# --> Adds all 
 
             #Increment count by 1
             count+=1
+			
+		#IF the square DOWN count and LEFT count has a white piece THEN 
         elif pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) - count) + str(int(piececoordinate[1]) - count), board) == "W":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - count) + str(int(piececoordinate[1] ) - count))
+			
+			#Reset count to 0
             count = 0
+			
+			#END WHILE 
             break
+		
+		#Reset count to 0
         count = 0
+		
+		#END WHILE 
         break
-    #DOWN RIGHT
-    while changeRowToDigit(piececoordinate[0]) + count < 8 and  int(piececoordinate[1]) - count > -1:
+		
+    '''DOWN RIGHT'''
+	#WHILE the row + count < 8 AND the column - count > -1
+    while changeRowToDigit(piececoordinate[0]) + count < 8 and  int(piececoordinate[1]) - count > -1
+		
+		#IF the square DOWN count and RIGHT count is empty THEN 
         if board[int(piececoordinate[1]) - count][changeRowToDigit(piececoordinate[0] ) + count] == "  ":
 
             #Add the move to the list
@@ -726,69 +836,135 @@ def generateMovesBishopBlack(board, moves_list, piececoordinate):# --> Adds all 
 
             #Increment count by 1
             count+=1
+		
+		#IF the square DOWN count and RIGHT count has a white piece THEN 
         elif pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0] ) + count) + str(int(piececoordinate[1]) - count), board)== "W":
 
             #Add the move to the list
             moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + count) + str(int(piececoordinate[1] ) - count))
+			
+			#Reset count to 0 
             count = 0
+			
+			#END WHILE 
             break
+			
+		#Reset count to 0 
         count = 0
+		
+		#END WHILE 
         break
 
 def generateMovesRookBlack(board, moves_list, piececoordinate):# --> Adds all of the ROOKS legal moves to the overall move list
-    #UP
+
+    '''UP'''
+	#FOR squares in range 8 - column of rook location 
     for squares in range( 8 - int(piececoordinate[1]) ):
+	
+		#IF squares !=  THEN 
         if squares != 0:
+		
+			#IF the square UP squares is empty THEN 
             if board[int(piececoordinate[1]) + squares][changeRowToDigit(piececoordinate[0])] == "  ":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1]) + squares))
+				
+			#ELSE IF the square UP squares has a white piece THEN 
             elif pieceTeam(piececoordinate[0] + str(int(piececoordinate[1]) + squares), board)== "W":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1]) + squares))
+				
+				#END FOR 
                 break
+			
+			#ELSE
             else:
+			
+				#END FOR 
                 break
-    #RIGHT
+				
+    '''RIGHT'''
+	#FOR squares in range 8 - row of rook location 
     for squares in range (8 - changeRowToDigit(piececoordinate[0])):
+		
+		#IF squares != 0 THEN
         if squares != 0:
+			
+			#IF the square RIGHT squares is empty THEN 
             if board[int(piececoordinate[1])][changeRowToDigit(piececoordinate[0]) + squares] == "  ":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + squares) + str(int(piececoordinate[1] )))
+			
+			#ELSE IF the square RIGHT squares has a white piece THEN 
             elif pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) + squares) + piececoordinate[1], board) == "W":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) + squares) + str(int(piececoordinate[1] )))
+				
+				#END FOR 
                 break
+			
+			#ELSE 
             else:
+			
+				#END FOR 
                 break
-    #DOWN
+				
+    '''DOWN'''
+	#FOR squares in range of the rooks height 
     for squares in range(int(piececoordinate[1])):
+	
+		#IF squares != 0 THEN 
         if squares != 0:
+		
+			#IF the square DOWN squares is empty THEN 
             if board[int(piececoordinate[1]) - squares][changeRowToDigit(piececoordinate[0])] == "  ":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1]) - squares))
+			
+			#ELSE IF the square DOWN squares has a white white piece THEN 
             elif pieceTeam(piececoordinate[0] + str(int(piececoordinate[1]) - squares), board) == "W":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0])) + str(int(piececoordinate[1]) - squares))
+				
+				#END FOR 
                 break
+			
+			#ELSE
             else:
+			
+				#END FOR 
                 break
-    #LEFT
+				
+    '''LEFT'''
+	#FOR squares in range of the right-ness of rook location 
     for squares in range(changeRowToDigit(piececoordinate[0])):
+	
+		#IF squares != 0 THEN 
         if squares != 0:
+		
+			#IF the square LEFT squares is empty THEN 
             if board[int(piececoordinate[1])][changeRowToDigit(piececoordinate[0]) - squares] == "  ":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - squares) + str(int(piececoordinate[1] )))
+				
+			#ELSE IF the square LEFT square has a white piece THEN 
             elif pieceTeam(changeDigitToRow(changeRowToDigit(piececoordinate[0]) - squares) + piececoordinate[1], board)== "W":
 
                 #Add the move to the list
                 moves_list.append(piececoordinate + 'x' + changeDigitToRow(changeRowToDigit(piececoordinate[0]) - squares) + str(int(piececoordinate[1] )))
+				
+				#END FOR 
                 break
+			
+			#ELSE
             else:
+			
+				#END FOR 
                 break
